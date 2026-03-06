@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(spec:requirements)",
+      "Skill(spec:design)",
+      "Bash(grep:*)",
+      "Bash(chmod +x:*)",
+      "Skill(spec:approve)",
+      "Bash(./gradlew test:*)",
+      "Bash(git:*)"
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+# Local development overrides — используй этот профиль при локальной разработке:
+# ./gradlew bootRun --args='--spring.profiles.active=local'
+
+spring:
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    com.example.app: DEBUG
+    org.springframework.web: DEBUG
+    org.flywaydb: DEBUG
