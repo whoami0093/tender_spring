@@ -72,7 +72,7 @@ class GosplanFz44SourceTest {
     fun `TenderFilters defaults are empty`() {
         val filters = TenderFilters()
         assertThat(filters.regions).isEmpty()
-        assertThat(filters.objectInfo).isNull()
+        assertThat(filters.keywords).isEmpty()
         assertThat(filters.customerInn).isNull()
         assertThat(filters.maxPriceFrom).isNull()
         assertThat(filters.maxPriceTo).isNull()

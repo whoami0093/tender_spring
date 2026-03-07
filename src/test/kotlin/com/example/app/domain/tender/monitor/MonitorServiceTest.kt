@@ -7,9 +7,7 @@ import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.example.app.domain.tender.subscription.Subscription
 import com.example.app.domain.tender.subscription.SubscriptionRepository
 import com.example.app.domain.tender.subscription.SubscriptionStatus
-import io.mockk.any
 import io.mockk.every
-import io.mockk.match
 import io.mockk.mockk
 import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
