@@ -15,7 +15,6 @@ import java.time.Duration
 @Configuration
 @EnableCaching
 class RedisConfig {
-
     @Bean
     fun redisTemplate(connectionFactory: RedisConnectionFactory): RedisTemplate<String, Any> =
         RedisTemplate<String, Any>().apply {
@@ -28,17 +27,18 @@ class RedisConfig {
 
     @Bean
     fun cacheManager(connectionFactory: RedisConnectionFactory): RedisCacheManager {
-        val defaultConfig = RedisCacheConfiguration.defaultCacheConfig()
-            .entryTtl(Duration.ofMinutes(10))
-            .serializeKeysWith(
-                RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer())
-            )
-            .serializeValuesWith(
-                RedisSerializationContext.SerializationPair.fromSerializer(GenericJackson2JsonRedisSerializer())
-            )
-            .disableCachingNullValues()
+        val defaultConfig =
+            RedisCacheConfiguration
+                .defaultCacheConfig()
+                .entryTtl(Duration.ofMinutes(10))
+                .serializeKeysWith(
+                    RedisSerializationContext.SerializationPair.fromSerializer(StringRedisSerializer()),
+                ).serializeValuesWith(
+                    RedisSerializationContext.SerializationPair.fromSerializer(GenericJackson2JsonRedisSerializer()),
+                ).disableCachingNullValues()
 
-        return RedisCacheManager.builder(connectionFactory)
+        return RedisCacheManager
+            .builder(connectionFactory)
             .cacheDefaults(defaultConfig)
             .build()
     }

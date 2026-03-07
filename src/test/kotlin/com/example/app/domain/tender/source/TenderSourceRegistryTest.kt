@@ -7,15 +7,24 @@ import org.junit.jupiter.api.Test
 import java.time.Instant
 
 class TenderSourceRegistryTest {
+    private val sourceA =
+        object : TenderSource {
+            override val sourceKey = "SOURCE_A"
 
-    private val sourceA = object : TenderSource {
-        override val sourceKey = "SOURCE_A"
-        override fun fetch(filters: TenderFilters, publishedAfter: Instant) = emptyList<Tender>()
-    }
-    private val sourceB = object : TenderSource {
-        override val sourceKey = "SOURCE_B"
-        override fun fetch(filters: TenderFilters, publishedAfter: Instant) = emptyList<Tender>()
-    }
+            override fun fetch(
+                filters: TenderFilters,
+                publishedAfter: Instant,
+            ) = emptyList<Tender>()
+        }
+    private val sourceB =
+        object : TenderSource {
+            override val sourceKey = "SOURCE_B"
+
+            override fun fetch(
+                filters: TenderFilters,
+                publishedAfter: Instant,
+            ) = emptyList<Tender>()
+        }
 
     private val registry = TenderSourceRegistry(listOf(sourceA, sourceB))
 

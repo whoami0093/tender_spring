@@ -9,7 +9,6 @@ import java.math.BigDecimal
 import java.time.Instant
 
 class TenderEmailComposerTest {
-
     private val composer = TenderEmailComposer()
 
     @Test
@@ -34,10 +33,11 @@ class TenderEmailComposerTest {
 
     @Test
     fun `body contains all tender names`() {
-        val tenders = listOf(
-            buildTender("NUM-001", objectInfo = "Закупка мебели"),
-            buildTender("NUM-002", objectInfo = "Ремонт дорог"),
-        )
+        val tenders =
+            listOf(
+                buildTender("NUM-001", objectInfo = "Закупка мебели"),
+                buildTender("NUM-002", objectInfo = "Ремонт дорог"),
+            )
 
         val message = composer.compose(buildSubscription(), tenders)
 
@@ -52,15 +52,16 @@ class TenderEmailComposerTest {
         val message = composer.compose(buildSubscription(), listOf(tender))
 
         assertThat(message.body).contains("₽")
-        assertThat(message.body).contains("1")  // price digits present
+        assertThat(message.body).contains("1") // price digits present
     }
 
     @Test
     fun `body contains EIS links for each tender`() {
-        val tenders = listOf(
-            buildTender("NUM-001", eisUrl = "https://zakupki.gov.ru/test/NUM-001"),
-            buildTender("NUM-002", eisUrl = "https://zakupki.gov.ru/test/NUM-002"),
-        )
+        val tenders =
+            listOf(
+                buildTender("NUM-001", eisUrl = "https://zakupki.gov.ru/test/NUM-001"),
+                buildTender("NUM-002", eisUrl = "https://zakupki.gov.ru/test/NUM-002"),
+            )
 
         val message = composer.compose(buildSubscription(), tenders)
 

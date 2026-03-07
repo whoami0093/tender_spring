@@ -7,7 +7,11 @@ import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.example.app.domain.tender.subscription.Subscription
 import com.example.app.domain.tender.subscription.SubscriptionRepository
 import com.example.app.domain.tender.subscription.SubscriptionStatus
-import io.mockk.*
+import io.mockk.any
+import io.mockk.every
+import io.mockk.match
+import io.mockk.mockk
+import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -16,7 +20,6 @@ import java.time.Instant
 import java.util.Optional
 
 class MonitorServiceTest {
-
     private val subscriptionRepository = mockk<SubscriptionRepository>()
     private val subscriptionProcessor = mockk<SubscriptionProcessor>(relaxed = true)
 
@@ -44,25 +47,30 @@ class MonitorServiceTest {
 
     // ── helpers ───────────────────────────────────────────────────────────────
 
-    private fun buildSubscription(id: Long) = Subscription(
-        id = id,
-        source = "GOSPLAN_44",
-        emails = "[\"test@example.com\"]",
-        status = SubscriptionStatus.ACTIVE,
-    )
+    private fun buildSubscription(id: Long) =
+        Subscription(
+            id = id,
+            source = "GOSPLAN_44",
+            emails = "[\"test@example.com\"]",
+            status = SubscriptionStatus.ACTIVE,
+        )
 }
 
 class SubscriptionProcessorTest {
-
     private val subscriptionRepository = mockk<SubscriptionRepository>()
     private val seenTenderRepository = mockk<SeenTenderRepository>()
     private val registry = mockk<TenderSourceRegistry>()
     private val emailService = mockk<EmailService>(relaxed = true)
     private val composer = mockk<TenderEmailComposer>()
 
-    private val processor = SubscriptionProcessor(
-        subscriptionRepository, seenTenderRepository, registry, emailService, composer,
-    )
+    private val processor =
+        SubscriptionProcessor(
+            subscriptionRepository,
+            seenTenderRepository,
+            registry,
+            emailService,
+            composer,
+        )
 
     private val tenderSource = mockk<TenderSource>()
 
@@ -170,15 +178,16 @@ class SubscriptionProcessorTest {
         lastCheckedAt = lastCheckedAt,
     )
 
-    private fun buildTender(purchaseNumber: String) = Tender(
-        purchaseNumber = purchaseNumber,
-        objectInfo = "Test tender",
-        customerInn = "7710538450",
-        maxPrice = BigDecimal("100000"),
-        currency = "RUB",
-        deadline = Instant.now().plusSeconds(86400),
-        publishedAt = Instant.now(),
-        eisUrl = "https://zakupki.gov.ru/test/$purchaseNumber",
-        source = "GOSPLAN_44",
-    )
+    private fun buildTender(purchaseNumber: String) =
+        Tender(
+            purchaseNumber = purchaseNumber,
+            objectInfo = "Test tender",
+            customerInn = "7710538450",
+            maxPrice = BigDecimal("100000"),
+            currency = "RUB",
+            deadline = Instant.now().plusSeconds(86400),
+            publishedAt = Instant.now(),
+            eisUrl = "https://zakupki.gov.ru/test/$purchaseNumber",
+            source = "GOSPLAN_44",
+        )
 }

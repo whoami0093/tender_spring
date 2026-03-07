@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test
 import org.springframework.data.repository.findByIdOrNull
 
 class UserServiceTest {
-
     private val userRepository: UserRepository = mockk()
     private lateinit var userService: UserService
 

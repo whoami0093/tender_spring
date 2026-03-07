@@ -23,7 +23,10 @@
       "Bash(npm install:*)",
       "Bash(npm run:*)",
       "Bash(PGPASSWORD=apppass psql:*)",
-      "Bash(open:*)"
+      "Bash(open:*)",
+      "Bash(./gradlew ktlintCheck:*)",
+      "Bash(./gradlew ktlintFormat:*)",
+      "Bash(./gradlew detekt:*)"
     ]
   }
 }

@@ -15,6 +15,7 @@ class SubscriptionService(
     private val registry: TenderSourceRegistry,
 ) {
     private val mapper = jacksonObjectMapper()
+
     fun findAll(): List<SubscriptionResponse> = repository.findAll().map { it.toResponse() }
 
     fun findById(id: Long): SubscriptionResponse =
@@ -22,19 +23,28 @@ class SubscriptionService(
 
     @Transactional
     fun create(req: SubscriptionRequest): SubscriptionResponse {
-        registry.get(req.source)  // validates source exists
+        registry.get(req.source) // validates source exists
         val entity = req.toEntity()
         return repository.save(entity).toResponse()
     }
 
     @Transactional
-    fun update(id: Long, req: SubscriptionUpdateRequest): SubscriptionResponse {
+    fun update(
+        id: Long,
+        req: SubscriptionUpdateRequest,
+    ): SubscriptionResponse {
         val entity = repository.findByIdOrNull(id) ?: throw NotFoundException("Subscription not found: $id")
         entity.apply {
             label = req.label
             emails = mapper.writeValueAsString(req.emails)
-            filterRegions = req.filters.regions.takeIf { it.isNotEmpty() }?.joinToString(",")
-            filterObjectInfo = req.filters.keywords.takeIf { it.isNotEmpty() }?.joinToString(",")
+            filterRegions =
+                req.filters.regions
+                    .takeIf { it.isNotEmpty() }
+                    ?.joinToString(",")
+            filterObjectInfo =
+                req.filters.keywords
+                    .takeIf { it.isNotEmpty() }
+                    ?.joinToString(",")
             filterCustomerInn = req.filters.customerInn
             filterMaxPriceFrom = req.filters.maxPriceFrom
             filterMaxPriceTo = req.filters.maxPriceTo
@@ -44,7 +54,10 @@ class SubscriptionService(
     }
 
     @Transactional
-    fun updateStatus(id: Long, status: SubscriptionStatus): SubscriptionResponse {
+    fun updateStatus(
+        id: Long,
+        status: SubscriptionStatus,
+    ): SubscriptionResponse {
         val entity = repository.findByIdOrNull(id) ?: throw NotFoundException("Subscription not found: $id")
         entity.status = status
         entity.updatedAt = Instant.now()

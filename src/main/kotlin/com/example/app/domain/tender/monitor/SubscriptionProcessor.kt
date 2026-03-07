@@ -38,8 +38,12 @@ class SubscriptionProcessor(
             val fetched = withRetry { source.fetch(sub.toFilters(), publishedAfter) }
 
             val fetchedNumbers = fetched.map { it.purchaseNumber }
-            val knownNumbers = if (fetchedNumbers.isEmpty()) emptySet()
-            else seenTenderRepository.findSeenNumbers(sub.id, fetchedNumbers).toSet()
+            val knownNumbers =
+                if (fetchedNumbers.isEmpty()) {
+                    emptySet()
+                } else {
+                    seenTenderRepository.findSeenNumbers(sub.id, fetchedNumbers).toSet()
+                }
             val newTenders = fetched.filter { it.purchaseNumber !in knownNumbers }
 
             if (newTenders.isNotEmpty()) {
@@ -58,7 +62,10 @@ class SubscriptionProcessor(
         }
     }
 
-    private fun <T> withRetry(times: Int = 2, block: () -> T): T {
+    private fun <T> withRetry(
+        times: Int = 2,
+        block: () -> T,
+    ): T {
         repeat(times - 1) { runCatching { return block() } }
         return block()
     }

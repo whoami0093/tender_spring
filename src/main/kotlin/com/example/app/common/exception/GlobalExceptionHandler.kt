@@ -16,7 +16,6 @@ data class ErrorResponse(
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
-
     private val log = LoggerFactory.getLogger(javaClass)
 
     @ExceptionHandler(AppException::class)
@@ -29,8 +28,9 @@ class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handleValidation(ex: MethodArgumentNotValidException): ResponseEntity<ErrorResponse> {
-        val details = ex.bindingResult.fieldErrors
-            .joinToString("; ") { "${it.field}: ${it.defaultMessage}" }
+        val details =
+            ex.bindingResult.fieldErrors
+                .joinToString("; ") { "${it.field}: ${it.defaultMessage}" }
         return ResponseEntity
             .status(HttpStatus.UNPROCESSABLE_ENTITY)
             .body(ErrorResponse(code = "VALIDATION_ERROR", message = details))

@@ -10,13 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.web.servlet.*
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.delete
+import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.patch
+import org.springframework.test.web.servlet.post
 import java.time.Instant
 
 @WebMvcTest(SubscriptionController::class)
 @ActiveProfiles("test")
 class SubscriptionControllerTest {
-
     @Autowired
     lateinit var mockMvc: MockMvc
 
@@ -32,7 +35,8 @@ class SubscriptionControllerTest {
     fun `GET subscriptions returns list`() {
         every { service.findAll() } returns listOf(buildResponse(1L), buildResponse(2L))
 
-        mockMvc.get("/api/v1/subscriptions")
+        mockMvc
+            .get("/api/v1/subscriptions")
             .andExpect {
                 status { isOk() }
                 jsonPath("$.length()") { value(2) }
@@ -46,7 +50,8 @@ class SubscriptionControllerTest {
     fun `GET subscription by id returns 200`() {
         every { service.findById(1L) } returns buildResponse(1L)
 
-        mockMvc.get("/api/v1/subscriptions/1")
+        mockMvc
+            .get("/api/v1/subscriptions/1")
             .andExpect {
                 status { isOk() }
                 jsonPath("$.id") { value(1) }
@@ -60,40 +65,44 @@ class SubscriptionControllerTest {
     fun `POST subscriptions creates subscription and returns 201`() {
         every { service.create(any()) } returns buildResponse(10L)
 
-        mockMvc.post("/api/v1/subscriptions") {
-            contentType = MediaType.APPLICATION_JSON
-            content = """
-                {
-                  "source": "GOSPLAN_44",
-                  "label": "Test",
-                  "emails": ["user@example.com"],
-                  "filters": { "regions": [77], "objectInfo": "строительство" }
-                }
-            """.trimIndent()
-        }.andExpect {
-            status { isCreated() }
-            jsonPath("$.id") { value(10) }
-        }
+        mockMvc
+            .post("/api/v1/subscriptions") {
+                contentType = MediaType.APPLICATION_JSON
+                content =
+                    """
+                    {
+                      "source": "GOSPLAN_44",
+                      "label": "Test",
+                      "emails": ["user@example.com"],
+                      "filters": { "regions": [77], "objectInfo": "строительство" }
+                    }
+                    """.trimIndent()
+            }.andExpect {
+                status { isCreated() }
+                jsonPath("$.id") { value(10) }
+            }
     }
 
     @Test
     fun `POST subscriptions returns 422 when source is blank`() {
-        mockMvc.post("/api/v1/subscriptions") {
-            contentType = MediaType.APPLICATION_JSON
-            content = """{"source": "", "emails": ["user@example.com"]}"""
-        }.andExpect {
-            status { isUnprocessableEntity() }
-        }
+        mockMvc
+            .post("/api/v1/subscriptions") {
+                contentType = MediaType.APPLICATION_JSON
+                content = """{"source": "", "emails": ["user@example.com"]}"""
+            }.andExpect {
+                status { isUnprocessableEntity() }
+            }
     }
 
     @Test
     fun `POST subscriptions returns 422 when emails list is empty`() {
-        mockMvc.post("/api/v1/subscriptions") {
-            contentType = MediaType.APPLICATION_JSON
-            content = """{"source": "GOSPLAN_44", "emails": []}"""
-        }.andExpect {
-            status { isUnprocessableEntity() }
-        }
+        mockMvc
+            .post("/api/v1/subscriptions") {
+                contentType = MediaType.APPLICATION_JSON
+                content = """{"source": "GOSPLAN_44", "emails": []}"""
+            }.andExpect {
+                status { isUnprocessableEntity() }
+            }
     }
 
     // ── PATCH /subscriptions/{id}/status ──────────────────────────────────────
@@ -103,13 +112,14 @@ class SubscriptionControllerTest {
         every { service.updateStatus(1L, SubscriptionStatus.PAUSED) } returns
             buildResponse(1L, status = "PAUSED")
 
-        mockMvc.patch("/api/v1/subscriptions/1/status") {
-            contentType = MediaType.APPLICATION_JSON
-            content = """{"status": "PAUSED"}"""
-        }.andExpect {
-            status { isOk() }
-            jsonPath("$.status") { value("PAUSED") }
-        }
+        mockMvc
+            .patch("/api/v1/subscriptions/1/status") {
+                contentType = MediaType.APPLICATION_JSON
+                content = """{"status": "PAUSED"}"""
+            }.andExpect {
+                status { isOk() }
+                jsonPath("$.status") { value("PAUSED") }
+            }
     }
 
     // ── DELETE /subscriptions/{id} ────────────────────────────────────────────
@@ -118,7 +128,8 @@ class SubscriptionControllerTest {
     fun `DELETE subscription returns 204`() {
         every { service.delete(1L) } just runs
 
-        mockMvc.delete("/api/v1/subscriptions/1")
+        mockMvc
+            .delete("/api/v1/subscriptions/1")
             .andExpect {
                 status { isNoContent() }
             }

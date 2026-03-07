@@ -46,30 +46,33 @@ data class SubscriptionResponse(
 
 private val dtoMapper = jacksonObjectMapper()
 
-fun Subscription.toResponse() = SubscriptionResponse(
-    id = id,
-    source = source,
-    label = label,
-    emails = emailList(),
-    status = status.name,
-    filters = SubscriptionFiltersRequest(
-        regions = filterRegions?.split(",")?.mapNotNull { it.trim().toIntOrNull() } ?: emptyList(),
-        keywords = filterObjectInfo?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
-        customerInn = filterCustomerInn,
-        maxPriceFrom = filterMaxPriceFrom,
-        maxPriceTo = filterMaxPriceTo,
-    ),
-    lastCheckedAt = lastCheckedAt,
-    createdAt = createdAt,
-)
+fun Subscription.toResponse() =
+    SubscriptionResponse(
+        id = id,
+        source = source,
+        label = label,
+        emails = emailList(),
+        status = status.name,
+        filters =
+            SubscriptionFiltersRequest(
+                regions = filterRegions?.split(",")?.mapNotNull { it.trim().toIntOrNull() } ?: emptyList(),
+                keywords = filterObjectInfo?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
+                customerInn = filterCustomerInn,
+                maxPriceFrom = filterMaxPriceFrom,
+                maxPriceTo = filterMaxPriceTo,
+            ),
+        lastCheckedAt = lastCheckedAt,
+        createdAt = createdAt,
+    )
 
-fun SubscriptionRequest.toEntity(): Subscription = Subscription(
-    source = source,
-    label = label,
-    emails = dtoMapper.writeValueAsString(emails),
-    filterRegions = filters.regions.takeIf { it.isNotEmpty() }?.joinToString(","),
-    filterObjectInfo = filters.keywords.takeIf { it.isNotEmpty() }?.joinToString(","),
-    filterCustomerInn = filters.customerInn,
-    filterMaxPriceFrom = filters.maxPriceFrom,
-    filterMaxPriceTo = filters.maxPriceTo,
-)
+fun SubscriptionRequest.toEntity(): Subscription =
+    Subscription(
+        source = source,
+        label = label,
+        emails = dtoMapper.writeValueAsString(emails),
+        filterRegions = filters.regions.takeIf { it.isNotEmpty() }?.joinToString(","),
+        filterObjectInfo = filters.keywords.takeIf { it.isNotEmpty() }?.joinToString(","),
+        filterCustomerInn = filters.customerInn,
+        filterMaxPriceFrom = filters.maxPriceFrom,
+        filterMaxPriceTo = filters.maxPriceTo,
+    )
