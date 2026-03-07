@@ -74,7 +74,7 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
           maxPriceTo: existing.filters.maxPriceTo?.toString() ?? '',
           regionsRaw: existing.filters.regions.join(', '),
         }
-      : { source: 'gosplan', label: '', emailsRaw: '', regionsRaw: '' },
+      : { source: '', label: '', emailsRaw: '', regionsRaw: '' },
   })
 
   const sourceValue = watch('source')
@@ -117,7 +117,8 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
             <SelectValue placeholder="Выберите реестр" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="gosplan">Госплан</SelectItem>
+            <SelectItem value="GOSPLAN_44">Госплан — 44-ФЗ</SelectItem>
+              <SelectItem value="GOSPLAN_223">Госплан — 223-ФЗ</SelectItem>
           </SelectContent>
         </Select>
         {errors.source && <p className="text-sm text-destructive">{errors.source.message}</p>}
@@ -139,11 +140,11 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
 
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1.5">
-            <Label htmlFor="maxPriceFrom">Сумма от (₸)</Label>
+            <Label htmlFor="maxPriceFrom">Сумма от (₽)</Label>
             <Input id="maxPriceFrom" type="number" placeholder="0" {...register('maxPriceFrom')} />
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="maxPriceTo">Сумма до (₸)</Label>
+            <Label htmlFor="maxPriceTo">Сумма до (₽)</Label>
             <Input id="maxPriceTo" type="number" placeholder="∞" {...register('maxPriceTo')} />
           </div>
         </div>
