@@ -45,14 +45,22 @@ spring:
       mail.smtp.auth: false
       mail.smtp.starttls.enable: false
 
-app:
-  email:
-    from: ${EMAIL_FROM:noreply@example.com}
-
   jackson:
     default-property-inclusion: non_null
     serialization:
       write-dates-as-timestamps: false
+
+app:
+  email:
+    from: ${EMAIL_FROM:noreply@example.com}
+
+zakupki:
+  gosplan:
+    base-url: ${GOSPLAN_BASE_URL:https://v2test.gosplan.info}
+    api-key: ${GOSPLAN_API_KEY:}
+    timeout-seconds: 15
+  monitor:
+    interval-minutes: 30
 
 server:
   port: 8080
