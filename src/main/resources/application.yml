@@ -49,6 +49,14 @@ app:
   email:
     from: ${EMAIL_FROM:noreply@example.com}
 
+zakupki:
+  gosplan:
+    base-url: ${GOSPLAN_BASE_URL:https://v2test.gosplan.info}
+    api-key: ${GOSPLAN_API_KEY:}
+    timeout-seconds: 15
+  monitor:
+    interval-minutes: 30
+
   jackson:
     default-property-inclusion: non_null
     serialization:
