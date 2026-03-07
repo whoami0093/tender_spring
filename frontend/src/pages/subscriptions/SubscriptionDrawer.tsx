@@ -25,7 +25,8 @@ export function SubscriptionDrawer({ open, onClose, existing }: Props) {
   })
 
   const updateMutation = useMutation({
-    mutationFn: (data: SubscriptionUpdateRequest) => updateSubscription(existing!.id, data),
+    mutationFn: ({ id, data }: { id: number; data: SubscriptionUpdateRequest }) =>
+      updateSubscription(id, data),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['subscriptions'] })
       toast.success('Подписка обновлена')
@@ -39,19 +40,21 @@ export function SubscriptionDrawer({ open, onClose, existing }: Props) {
   function handleSubmit(data: SubscriptionRequest) {
     if (existing) {
       const { source: _source, ...updateData } = data
-      updateMutation.mutate(updateData)
+      updateMutation.mutate({ id: existing.id, data: updateData })
     } else {
       createMutation.mutate(data)
     }
   }
 
   return (
+    // key сбрасывает всё внутреннее состояние формы при смене подписки или режима
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
       <SheetContent>
         <SheetHeader>
           <SheetTitle>{existing ? 'Редактировать подписку' : 'Новая подписка'}</SheetTitle>
         </SheetHeader>
         <SubscriptionForm
+          key={existing?.id ?? 'new'}
           existing={existing}
           onSubmit={handleSubmit}
           isLoading={isLoading}

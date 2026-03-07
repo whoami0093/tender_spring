@@ -21,6 +21,7 @@ class SecurityConfig {
             }
             .httpBasic { }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            // CSRF отключён: Basic Auth + SPA без cookie-сессий (stateless)
             .csrf { it.disable() }
 
         return http.build()

@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { TagInput } from '@/components/ui/tag-input'
+import { RegionSelect } from '@/components/ui/region-select'
 import { SOURCE_OPTIONS } from '@/lib/sources'
 import type { SubscriptionResponse } from '@/api/types'
 
@@ -15,19 +16,25 @@ const schema = z.object({
   label: z.string().min(1, 'Название обязательно'),
   source: z.string().min(1, 'Выберите источник'),
   customerInn: z.string().optional(),
-  maxPriceFrom: z.string().optional(),
-  maxPriceTo: z.string().optional(),
-  regionsRaw: z.string().optional(),
-})
+  maxPriceFrom: z.string()
+    .optional()
+    .refine((v) => !v || (!isNaN(parseFloat(v)) && parseFloat(v) >= 0), 'Введите корректную сумму'),
+  maxPriceTo: z.string()
+    .optional()
+    .refine((v) => !v || (!isNaN(parseFloat(v)) && parseFloat(v) >= 0), 'Введите корректную сумму'),
+}).refine(
+  (d) => {
+    const from = d.maxPriceFrom ? parseFloat(d.maxPriceFrom) : undefined
+    const to = d.maxPriceTo ? parseFloat(d.maxPriceTo) : undefined
+    if (from !== undefined && to !== undefined) return from <= to
+    return true
+  },
+  { message: 'Сумма «от» не может быть больше суммы «до»', path: ['maxPriceTo'] }
+)
 
 type FormValues = z.infer<typeof schema>
 
-function parseRegions(raw: string): number[] {
-  return raw
-    .split(/[\n,;]+/)
-    .map((r) => parseInt(r.trim(), 10))
-    .filter((n) => !isNaN(n))
-}
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 interface Props {
   existing?: SubscriptionResponse
@@ -49,7 +56,9 @@ interface Props {
 
 export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Props) {
   const [emails, setEmails] = useState<string[]>(existing?.emails ?? [])
+  const [emailError, setEmailError] = useState<string | null>(null)
   const [keywords, setKeywords] = useState<string[]>(existing?.filters.keywords ?? [])
+  const [regions, setRegions] = useState<number[]>(existing?.filters.regions ?? [])
 
   const {
     register,
@@ -66,12 +75,22 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
           customerInn: existing.filters.customerInn ?? '',
           maxPriceFrom: existing.filters.maxPriceFrom?.toString() ?? '',
           maxPriceTo: existing.filters.maxPriceTo?.toString() ?? '',
-          regionsRaw: existing.filters.regions.join(', '),
         }
-      : { source: '', label: '', regionsRaw: '' },
+      : { source: '', label: '' },
   })
 
   const sourceValue = watch('source')
+
+  function handleAddEmail(tags: string[]) {
+    const last = tags[tags.length - 1]
+    if (last && !EMAIL_RE.test(last)) {
+      setEmailError(`«${last}» — неверный формат email`)
+      setEmails(tags.slice(0, -1))
+    } else {
+      setEmailError(null)
+      setEmails(tags)
+    }
+  }
 
   function onValid(values: FormValues) {
     if (emails.length === 0) return
@@ -80,7 +99,7 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
       label: values.label || undefined,
       emails,
       filters: {
-        regions: parseRegions(values.regionsRaw ?? ''),
+        regions,
         keywords,
         customerInn: values.customerInn || undefined,
         maxPriceFrom: values.maxPriceFrom ? parseFloat(values.maxPriceFrom) : undefined,
@@ -122,7 +141,7 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
       <div className="space-y-1.5">
         <Label>Ключевые слова</Label>
         <p className="text-xs text-muted-foreground">
-          Каждое слово — отдельный запрос к API. Больше слов = больше тендеров.
+          Каждое слово — отдельный запрос. Больше слов = больше тендеров.
         </p>
         <TagInput
           value={keywords}
@@ -131,9 +150,14 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
         />
       </div>
 
-      {/* Остальные фильтры */}
+      {/* Доп. фильтры */}
       <div className="rounded-md border p-4 space-y-4">
         <p className="text-sm font-medium text-muted-foreground">Дополнительные фильтры</p>
+
+        <div className="space-y-1.5">
+          <Label>Регионы</Label>
+          <RegionSelect value={regions} onChange={setRegions} />
+        </div>
 
         <div className="space-y-1.5">
           <Label htmlFor="customerInn">ИНН заказчика</Label>
@@ -143,17 +167,14 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
         <div className="grid grid-cols-2 gap-3">
           <div className="space-y-1.5">
             <Label htmlFor="maxPriceFrom">Сумма от (₽)</Label>
-            <Input id="maxPriceFrom" type="number" placeholder="0" {...register('maxPriceFrom')} />
+            <Input id="maxPriceFrom" type="number" min="0" placeholder="0" {...register('maxPriceFrom')} />
+            {errors.maxPriceFrom && <p className="text-sm text-destructive">{errors.maxPriceFrom.message}</p>}
           </div>
           <div className="space-y-1.5">
             <Label htmlFor="maxPriceTo">Сумма до (₽)</Label>
-            <Input id="maxPriceTo" type="number" placeholder="∞" {...register('maxPriceTo')} />
+            <Input id="maxPriceTo" type="number" min="0" placeholder="∞" {...register('maxPriceTo')} />
+            {errors.maxPriceTo && <p className="text-sm text-destructive">{errors.maxPriceTo.message}</p>}
           </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label htmlFor="regionsRaw">Регионы (коды через запятую)</Label>
-          <Input id="regionsRaw" placeholder="1, 5, 17" {...register('regionsRaw')} />
         </div>
       </div>
 
@@ -162,17 +183,23 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
         <Label>Email-адреса получателей</Label>
         <TagInput
           value={emails}
-          onChange={setEmails}
+          onChange={handleAddEmail}
           placeholder="user@example.com"
           inputType="email"
         />
-        {emails.length === 0 && (
+        {emailError && <p className="text-sm text-destructive">{emailError}</p>}
+        {!emailError && emails.length === 0 && (
           <p className="text-sm text-destructive">Укажите хотя бы один email</p>
         )}
       </div>
 
       <div className="flex gap-3 pt-2">
-        <Button type="submit" disabled={isLoading || emails.length === 0} className="flex-1">
+        <Button
+          type="submit"
+          disabled={isLoading || emails.length === 0}
+          title={emails.length === 0 ? 'Укажите хотя бы один email' : undefined}
+          className="flex-1"
+        >
           {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
           {existing ? 'Сохранить' : 'Создать'}
         </Button>
