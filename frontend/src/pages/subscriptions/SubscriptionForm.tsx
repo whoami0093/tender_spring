@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -5,15 +6,14 @@ import { Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { TagInput } from '@/components/ui/tag-input'
+import { SOURCE_OPTIONS } from '@/lib/sources'
 import type { SubscriptionResponse } from '@/api/types'
 
 const schema = z.object({
   label: z.string().min(1, 'Название обязательно'),
   source: z.string().min(1, 'Выберите источник'),
-  emailsRaw: z.string().min(1, 'Укажите хотя бы один email'),
-  objectInfo: z.string().optional(),
   customerInn: z.string().optional(),
   maxPriceFrom: z.string().optional(),
   maxPriceTo: z.string().optional(),
@@ -21,13 +21,6 @@ const schema = z.object({
 })
 
 type FormValues = z.infer<typeof schema>
-
-function parseEmails(raw: string): string[] {
-  return raw
-    .split(/[\n,;]+/)
-    .map((e) => e.trim())
-    .filter(Boolean)
-}
 
 function parseRegions(raw: string): number[] {
   return raw
@@ -44,7 +37,7 @@ interface Props {
     emails: string[]
     filters: {
       regions: number[]
-      objectInfo?: string
+      keywords: string[]
       customerInn?: string
       maxPriceFrom?: number
       maxPriceTo?: number
@@ -55,6 +48,9 @@ interface Props {
 }
 
 export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Props) {
+  const [emails, setEmails] = useState<string[]>(existing?.emails ?? [])
+  const [keywords, setKeywords] = useState<string[]>(existing?.filters.keywords ?? [])
+
   const {
     register,
     handleSubmit,
@@ -67,28 +63,25 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
       ? {
           label: existing.label ?? '',
           source: existing.source,
-          emailsRaw: existing.emails.join('\n'),
-          objectInfo: existing.filters.objectInfo ?? '',
           customerInn: existing.filters.customerInn ?? '',
           maxPriceFrom: existing.filters.maxPriceFrom?.toString() ?? '',
           maxPriceTo: existing.filters.maxPriceTo?.toString() ?? '',
           regionsRaw: existing.filters.regions.join(', '),
         }
-      : { source: '', label: '', emailsRaw: '', regionsRaw: '' },
+      : { source: '', label: '', regionsRaw: '' },
   })
 
   const sourceValue = watch('source')
 
   function onValid(values: FormValues) {
-    const emails = parseEmails(values.emailsRaw)
-    const regions = parseRegions(values.regionsRaw ?? '')
+    if (emails.length === 0) return
     onSubmit({
       source: values.source,
       label: values.label || undefined,
       emails,
       filters: {
-        regions,
-        objectInfo: values.objectInfo || undefined,
+        regions: parseRegions(values.regionsRaw ?? ''),
+        keywords,
         customerInn: values.customerInn || undefined,
         maxPriceFrom: values.maxPriceFrom ? parseFloat(values.maxPriceFrom) : undefined,
         maxPriceTo: values.maxPriceTo ? parseFloat(values.maxPriceTo) : undefined,
@@ -101,7 +94,7 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
       {/* Название */}
       <div className="space-y-1.5">
         <Label htmlFor="label">Название</Label>
-        <Input id="label" placeholder="Строительство, регион X" {...register('label')} />
+        <Input id="label" placeholder="Хоз товары, Омск" {...register('label')} />
         {errors.label && <p className="text-sm text-destructive">{errors.label.message}</p>}
       </div>
 
@@ -117,21 +110,30 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
             <SelectValue placeholder="Выберите реестр" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="GOSPLAN_44">Госплан — 44-ФЗ</SelectItem>
-              <SelectItem value="GOSPLAN_223">Госплан — 223-ФЗ</SelectItem>
+            {SOURCE_OPTIONS.map((o) => (
+              <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
         {errors.source && <p className="text-sm text-destructive">{errors.source.message}</p>}
       </div>
 
-      {/* Фильтры */}
-      <div className="rounded-md border p-4 space-y-4">
-        <p className="text-sm font-medium text-muted-foreground">Фильтры тендеров</p>
+      {/* Ключевые слова */}
+      <div className="space-y-1.5">
+        <Label>Ключевые слова</Label>
+        <p className="text-xs text-muted-foreground">
+          Каждое слово — отдельный запрос к API. Больше слов = больше тендеров.
+        </p>
+        <TagInput
+          value={keywords}
+          onChange={setKeywords}
+          placeholder="хозтовары, моющие средства…"
+        />
+      </div>
 
-        <div className="space-y-1.5">
-          <Label htmlFor="objectInfo">Ключевые слова (предмет закупки)</Label>
-          <Input id="objectInfo" placeholder="Ремонт дороги" {...register('objectInfo')} />
-        </div>
+      {/* Остальные фильтры */}
+      <div className="rounded-md border p-4 space-y-4">
+        <p className="text-sm font-medium text-muted-foreground">Дополнительные фильтры</p>
 
         <div className="space-y-1.5">
           <Label htmlFor="customerInn">ИНН заказчика</Label>
@@ -155,20 +157,22 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
         </div>
       </div>
 
-      {/* Email-список */}
+      {/* Email получателей */}
       <div className="space-y-1.5">
-        <Label htmlFor="emailsRaw">Email-адреса получателей</Label>
-        <Textarea
-          id="emailsRaw"
-          placeholder="one@example.com&#10;two@example.com"
-          rows={4}
-          {...register('emailsRaw')}
+        <Label>Email-адреса получателей</Label>
+        <TagInput
+          value={emails}
+          onChange={setEmails}
+          placeholder="user@example.com"
+          inputType="email"
         />
-        {errors.emailsRaw && <p className="text-sm text-destructive">{errors.emailsRaw.message}</p>}
+        {emails.length === 0 && (
+          <p className="text-sm text-destructive">Укажите хотя бы один email</p>
+        )}
       </div>
 
       <div className="flex gap-3 pt-2">
-        <Button type="submit" disabled={isLoading} className="flex-1">
+        <Button type="submit" disabled={isLoading || emails.length === 0} className="flex-1">
           {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
           {existing ? 'Сохранить' : 'Создать'}
         </Button>

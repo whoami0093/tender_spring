@@ -1,6 +1,6 @@
 export interface SubscriptionFilters {
   regions: number[]
-  objectInfo?: string
+  keywords: string[]
   customerInn?: string
   maxPriceFrom?: number
   maxPriceTo?: number

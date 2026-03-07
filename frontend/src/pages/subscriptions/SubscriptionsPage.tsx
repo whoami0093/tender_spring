@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Plus, Pencil, Trash2, BellOff, Search } from 'lucide-react'
+import { sourceLabel } from '@/lib/sources'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -130,7 +131,7 @@ export function SubscriptionsPage() {
                 <TableRow key={sub.id} className={sub.status === 'PAUSED' ? 'opacity-60' : ''}>
                   <TableCell className="font-medium">{sub.label ?? '—'}</TableCell>
                   <TableCell>
-                    <Badge variant="secondary">{sub.source}</Badge>
+                    <Badge variant="secondary">{sourceLabel(sub.source)}</Badge>
                   </TableCell>
                   <TableCell className="max-w-[220px]">
                     <span className="block truncate text-sm text-muted-foreground">
