@@ -45,7 +45,7 @@ class TenderEmailComposer {
                 val date = it.atZone(ZoneId.of("Europe/Moscow")).format(dateFormatter)
                 append("Дедлайн: $date<br>")
             }
-            append("<a href='${tender.eisUrl}'>Открыть на ЕИС</a>")
+            append("<a href='${tender.eisUrl.escapeHtml()}'>Открыть на ЕИС</a>")
             append("</li>")
         }
         append("</ol>")

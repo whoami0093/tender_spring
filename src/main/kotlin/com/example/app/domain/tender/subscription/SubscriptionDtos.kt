@@ -1,6 +1,6 @@
 package com.example.app.domain.tender.subscription
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import jakarta.validation.Valid
 import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
@@ -23,6 +23,12 @@ data class SubscriptionRequest(
     @field:Valid val filters: SubscriptionFiltersRequest = SubscriptionFiltersRequest(),
 )
 
+data class SubscriptionUpdateRequest(
+    val label: String? = null,
+    @field:NotEmpty val emails: List<@Email String>,
+    @field:Valid val filters: SubscriptionFiltersRequest = SubscriptionFiltersRequest(),
+)
+
 data class SubscriptionStatusRequest(
     val status: SubscriptionStatus,
 )
@@ -38,7 +44,7 @@ data class SubscriptionResponse(
     val createdAt: Instant,
 )
 
-private val mapper = ObjectMapper()
+private val dtoMapper = jacksonObjectMapper()
 
 fun Subscription.toResponse() = SubscriptionResponse(
     id = id,
@@ -60,7 +66,7 @@ fun Subscription.toResponse() = SubscriptionResponse(
 fun SubscriptionRequest.toEntity(): Subscription = Subscription(
     source = source,
     label = label,
-    emails = mapper.writeValueAsString(emails),
+    emails = dtoMapper.writeValueAsString(emails),
     filterRegions = filters.regions.takeIf { it.isNotEmpty() }?.joinToString(","),
     filterObjectInfo = filters.objectInfo,
     filterCustomerInn = filters.customerInn,

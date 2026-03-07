@@ -45,6 +45,11 @@ spring:
       mail.smtp.auth: false
       mail.smtp.starttls.enable: false
 
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+
 app:
   email:
     from: ${EMAIL_FROM:noreply@example.com}
@@ -56,11 +61,6 @@ zakupki:
     timeout-seconds: 15
   monitor:
     interval-minutes: 30
-
-  jackson:
-    default-property-inclusion: non_null
-    serialization:
-      write-dates-as-timestamps: false
 
 server:
   port: 8080

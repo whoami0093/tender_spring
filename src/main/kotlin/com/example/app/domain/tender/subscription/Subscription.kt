@@ -1,6 +1,8 @@
 package com.example.app.domain.tender.subscription
 
 import com.example.app.domain.tender.source.TenderFilters
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import jakarta.persistence.*
 import java.math.BigDecimal
 import java.time.Instant
@@ -60,8 +62,6 @@ fun Subscription.toFilters() = TenderFilters(
     maxPriceTo = filterMaxPriceTo,
 )
 
-fun Subscription.emailList(): List<String> =
-    emails.trim().removePrefix("[").removeSuffix("]")
-        .split(",")
-        .map { it.trim().removeSurrounding("\"") }
-        .filter { it.isNotEmpty() }
+private val emailMapper = jacksonObjectMapper()
+
+fun Subscription.emailList(): List<String> = emailMapper.readValue(emails)

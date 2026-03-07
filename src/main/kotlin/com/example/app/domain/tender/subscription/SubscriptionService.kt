@@ -2,7 +2,7 @@ package com.example.app.domain.tender.subscription
 
 import com.example.app.common.exception.NotFoundException
 import com.example.app.domain.tender.source.TenderSourceRegistry
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -13,8 +13,8 @@ import java.time.Instant
 class SubscriptionService(
     private val repository: SubscriptionRepository,
     private val registry: TenderSourceRegistry,
-    private val mapper: ObjectMapper,
 ) {
+    private val mapper = jacksonObjectMapper()
     fun findAll(): List<SubscriptionResponse> = repository.findAll().map { it.toResponse() }
 
     fun findById(id: Long): SubscriptionResponse =
@@ -28,9 +28,8 @@ class SubscriptionService(
     }
 
     @Transactional
-    fun update(id: Long, req: SubscriptionRequest): SubscriptionResponse {
+    fun update(id: Long, req: SubscriptionUpdateRequest): SubscriptionResponse {
         val entity = repository.findByIdOrNull(id) ?: throw NotFoundException("Subscription not found: $id")
-        registry.get(req.source)
         entity.apply {
             label = req.label
             emails = mapper.writeValueAsString(req.emails)

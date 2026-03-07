@@ -19,7 +19,7 @@ class SubscriptionController(private val service: SubscriptionService) {
     fun create(@Valid @RequestBody req: SubscriptionRequest): SubscriptionResponse = service.create(req)
 
     @PutMapping("/{id}")
-    fun update(@PathVariable id: Long, @Valid @RequestBody req: SubscriptionRequest): SubscriptionResponse =
+    fun update(@PathVariable id: Long, @Valid @RequestBody req: SubscriptionUpdateRequest): SubscriptionResponse =
         service.update(id, req)
 
     @PatchMapping("/{id}/status")

@@ -3,8 +3,10 @@ package com.example.app.domain.tender.source.gosplan
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.client.SimpleClientHttpRequestFactory
+import org.springframework.http.client.JdkClientHttpRequestFactory
 import org.springframework.web.client.RestClient
+import java.net.http.HttpClient
+import java.time.Duration
 
 @Configuration
 @EnableConfigurationProperties(GosplanProperties::class)
@@ -12,10 +14,12 @@ class GosplanClientConfig {
 
     @Bean
     fun gosplanRestClient(props: GosplanProperties): RestClient {
-        val timeoutMs = (props.timeoutSeconds * 1000).toInt()
-        val factory = SimpleClientHttpRequestFactory().apply {
-            setConnectTimeout(timeoutMs)
-            setReadTimeout(timeoutMs)
+        val timeout = Duration.ofSeconds(props.timeoutSeconds)
+        val httpClient = HttpClient.newBuilder()
+            .connectTimeout(timeout)
+            .build()
+        val factory = JdkClientHttpRequestFactory(httpClient).apply {
+            setReadTimeout(timeout)
         }
         val builder = RestClient.builder()
             .baseUrl(props.baseUrl)
