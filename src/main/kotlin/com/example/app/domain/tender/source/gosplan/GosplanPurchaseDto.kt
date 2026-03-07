@@ -19,11 +19,12 @@ data class GosplanPurchaseDto(
 
 fun GosplanPurchaseDto.toTender(source: String): Tender {
     val deadline = collectingFinishedAt ?: submissionCloseAt
-    val eisUrl = if (source == "GOSPLAN_44") {
-        "https://zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=$purchaseNumber"
-    } else {
-        "https://zakupki.gov.ru/223/purchase/public/purchase/view/info.html?regNumber=$purchaseNumber"
-    }
+    val eisUrl =
+        if (source == "GOSPLAN_44") {
+            "https://zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=$purchaseNumber"
+        } else {
+            "https://zakupki.gov.ru/223/purchase/public/purchase/view/info.html?regNumber=$purchaseNumber"
+        }
     return Tender(
         purchaseNumber = purchaseNumber,
         objectInfo = objectInfo ?: "",

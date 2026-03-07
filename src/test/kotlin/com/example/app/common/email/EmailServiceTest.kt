@@ -3,7 +3,6 @@ package com.example.app.common.email
 import com.example.app.common.exception.EmailSendException
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.slot
 import io.mockk.verify
 import jakarta.mail.internet.MimeMessage
 import org.junit.jupiter.api.Test
@@ -12,7 +11,6 @@ import org.springframework.mail.MailSendException
 import org.springframework.mail.javamail.JavaMailSender
 
 class EmailServiceTest {
-
     private val mailSender = mockk<JavaMailSender>()
     private val config = EmailConfig(from = "noreply@example.com")
     private val service = EmailService(mailSender, config)

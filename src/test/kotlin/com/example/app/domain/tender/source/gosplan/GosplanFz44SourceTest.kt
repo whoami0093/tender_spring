@@ -4,12 +4,10 @@ import com.example.app.domain.tender.source.TenderFilters
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.springframework.web.client.RestClient
 import java.math.BigDecimal
 import java.time.Instant
 
 class GosplanFz44SourceTest {
-
     private val source = GosplanFz44Source(mockk(relaxed = true))
 
     @Test
@@ -19,17 +17,18 @@ class GosplanFz44SourceTest {
 
     @Test
     fun `toTender maps all fields correctly for GOSPLAN_44`() {
-        val dto = GosplanPurchaseDto(
-            purchaseNumber = "0123456789012345678",
-            objectInfo = "Поставка компьютеров",
-            customers = listOf("7710538450"),
-            maxPrice = BigDecimal("500000.00"),
-            currencyCode = "RUB",
-            collectingFinishedAt = Instant.parse("2026-04-01T10:00:00Z"),
-            submissionCloseAt = null,
-            publishedAt = Instant.parse("2026-03-01T08:00:00Z"),
-            region = 77,
-        )
+        val dto =
+            GosplanPurchaseDto(
+                purchaseNumber = "0123456789012345678",
+                objectInfo = "Поставка компьютеров",
+                customers = listOf("7710538450"),
+                maxPrice = BigDecimal("500000.00"),
+                currencyCode = "RUB",
+                collectingFinishedAt = Instant.parse("2026-04-01T10:00:00Z"),
+                submissionCloseAt = null,
+                publishedAt = Instant.parse("2026-03-01T08:00:00Z"),
+                region = 77,
+            )
 
         val tender = dto.toTender("GOSPLAN_44")
 
@@ -47,17 +46,18 @@ class GosplanFz44SourceTest {
 
     @Test
     fun `toTender handles null optional fields`() {
-        val dto = GosplanPurchaseDto(
-            purchaseNumber = "NUM-001",
-            objectInfo = null,
-            customers = null,
-            maxPrice = null,
-            currencyCode = null,
-            collectingFinishedAt = null,
-            submissionCloseAt = null,
-            publishedAt = null,
-            region = null,
-        )
+        val dto =
+            GosplanPurchaseDto(
+                purchaseNumber = "NUM-001",
+                objectInfo = null,
+                customers = null,
+                maxPrice = null,
+                currencyCode = null,
+                collectingFinishedAt = null,
+                submissionCloseAt = null,
+                publishedAt = null,
+                region = null,
+            )
 
         val tender = dto.toTender("GOSPLAN_44")
 

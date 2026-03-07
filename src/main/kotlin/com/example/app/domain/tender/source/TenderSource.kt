@@ -4,5 +4,9 @@ import java.time.Instant
 
 interface TenderSource {
     val sourceKey: String
-    fun fetch(filters: TenderFilters, publishedAfter: Instant): List<Tender>
+
+    fun fetch(
+        filters: TenderFilters,
+        publishedAfter: Instant,
+    ): List<Tender>
 }

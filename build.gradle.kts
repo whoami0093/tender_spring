@@ -6,6 +6,8 @@ plugins {
     kotlin("jvm") version "2.1.10"
     kotlin("plugin.spring") version "2.1.10"
     kotlin("plugin.jpa") version "2.1.10"
+    id("org.jlleitschuh.gradle.ktlint") version "12.1.2"
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 group = "com.example"
@@ -57,12 +59,32 @@ dependencies {
     testImplementation("com.h2database:h2")
 }
 
-val frontendBuild = tasks.register<Exec>("frontendBuild") {
-    description = "Build React frontend and output to static/admin"
-    group = "build"
-    workingDir("frontend")
-    commandLine("npm", "run", "build")
+ktlint {
+    version.set("1.4.1")
+    android.set(false)
 }
+
+detekt {
+    config.setFrom("$projectDir/config/detekt.yml")
+    buildUponDefaultConfig = true
+}
+
+// detekt 1.x is compiled with Kotlin 2.0.10 — pin its runtime to match
+configurations.matching { it.name.startsWith("detekt") }.configureEach {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin") {
+            useVersion("2.0.10")
+        }
+    }
+}
+
+val frontendBuild =
+    tasks.register<Exec>("frontendBuild") {
+        description = "Build React frontend and output to static/admin"
+        group = "build"
+        workingDir("frontend")
+        commandLine("npm", "run", "build")
+    }
 
 tasks.named("bootJar") {
     dependsOn(frontendBuild)
@@ -70,7 +92,9 @@ tasks.named("bootJar") {
 
 tasks.withType<KotlinCompile> {
     compilerOptions {
-        freeCompilerArgs.addAll("-Xjsr305=strict")
+        freeCompilerArgs.addAll(
+            "-Xjsr305=strict",
+        )
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
     }
 }

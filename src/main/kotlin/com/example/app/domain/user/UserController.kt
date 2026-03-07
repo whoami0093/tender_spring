@@ -2,24 +2,34 @@ package com.example.app.domain.user
 
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/api/v1/users")
 class UserController(
     private val userService: UserService,
 ) {
-
     @GetMapping
     fun getAll(): List<UserResponse> = userService.findAll()
 
     @GetMapping("/{id}")
-    fun getById(@PathVariable id: Long): UserResponse = userService.findById(id)
+    fun getById(
+        @PathVariable id: Long,
+    ): UserResponse = userService.findById(id)
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@Valid @RequestBody request: CreateUserRequest): UserResponse =
-        userService.create(request)
+    fun create(
+        @Valid @RequestBody request: CreateUserRequest,
+    ): UserResponse = userService.create(request)
 
     @PutMapping("/{id}")
     fun update(
@@ -29,5 +39,7 @@ class UserController(
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun delete(@PathVariable id: Long) = userService.delete(id)
+    fun delete(
+        @PathVariable id: Long,
+    ) = userService.delete(id)
 }

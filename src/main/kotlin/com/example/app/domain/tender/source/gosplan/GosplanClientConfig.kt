@@ -11,20 +11,24 @@ import java.time.Duration
 @Configuration
 @EnableConfigurationProperties(GosplanProperties::class)
 class GosplanClientConfig {
-
     @Bean
     fun gosplanRestClient(props: GosplanProperties): RestClient {
         val timeout = Duration.ofSeconds(props.timeoutSeconds)
-        val httpClient = HttpClient.newBuilder()
-            .connectTimeout(timeout)
-            .build()
-        val factory = JdkClientHttpRequestFactory(httpClient).apply {
-            setReadTimeout(timeout)
-        }
-        val builder = RestClient.builder()
-            .baseUrl(props.baseUrl)
-            .requestFactory(factory)
-            .defaultHeader("User-Agent", "Mozilla/5.0 (compatible; ZakupkiMonitor/1.0)")
+        val httpClient =
+            HttpClient
+                .newBuilder()
+                .connectTimeout(timeout)
+                .build()
+        val factory =
+            JdkClientHttpRequestFactory(httpClient).apply {
+                setReadTimeout(timeout)
+            }
+        val builder =
+            RestClient
+                .builder()
+                .baseUrl(props.baseUrl)
+                .requestFactory(factory)
+                .defaultHeader("User-Agent", "Mozilla/5.0 (compatible; ZakupkiMonitor/1.0)")
         if (!props.apiKey.isNullOrBlank()) {
             builder.defaultHeader("X-Api-Key", props.apiKey!!)
         }

@@ -17,8 +17,7 @@ class UserService(
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
-    fun findAll(): List<UserResponse> =
-        userRepository.findAll().map { it.toResponse() }
+    fun findAll(): List<UserResponse> = userRepository.findAll().map { it.toResponse() }
 
     @Cacheable(cacheNames = ["users"], key = "#id")
     fun findById(id: Long): UserResponse =
@@ -38,9 +37,13 @@ class UserService(
 
     @Transactional
     @CacheEvict(cacheNames = ["users"], key = "#id")
-    fun update(id: Long, request: UpdateUserRequest): UserResponse {
-        val user = userRepository.findByIdOrNull(id)
-            ?: throw NotFoundException("User with id=$id not found")
+    fun update(
+        id: Long,
+        request: UpdateUserRequest,
+    ): UserResponse {
+        val user =
+            userRepository.findByIdOrNull(id)
+                ?: throw NotFoundException("User with id=$id not found")
         user.name = request.name
         user.updatedAt = Instant.now()
         return userRepository.save(user).toResponse()
