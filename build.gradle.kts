@@ -38,6 +38,10 @@ dependencies {
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
 
+    // Security
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    testImplementation("org.springframework.security:spring-security-test")
+
     // Email
     implementation("org.springframework.boot:spring-boot-starter-mail")
 
@@ -51,6 +55,17 @@ dependencies {
     testImplementation("io.mockk:mockk:1.13.14")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
     testImplementation("com.h2database:h2")
+}
+
+val frontendBuild = tasks.register<Exec>("frontendBuild") {
+    description = "Build React frontend and output to static/admin"
+    group = "build"
+    workingDir("frontend")
+    commandLine("npm", "run", "build")
+}
+
+tasks.named("bootJar") {
+    dependsOn(frontendBuild)
 }
 
 tasks.withType<KotlinCompile> {

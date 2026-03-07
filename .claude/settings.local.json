@@ -18,7 +18,10 @@
       "Bash(brew install:*)",
       "Skill(spec:review)",
       "Bash(gh pr:*)",
-      "Bash(gh api:*)"
+      "Bash(gh api:*)",
+      "Bash(npm create:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)"
     ]
   }
 }
