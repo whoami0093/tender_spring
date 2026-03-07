@@ -7,7 +7,18 @@
       "Bash(chmod +x:*)",
       "Skill(spec:approve)",
       "Bash(./gradlew test:*)",
-      "Bash(git:*)"
+      "Bash(git:*)",
+      "Skill(spec:new)",
+      "WebFetch(domain:wiki.gosplan.info)",
+      "WebFetch(domain:swagger.gosplan.info)",
+      "WebFetch(domain:v2.gosplan.info)",
+      "Bash(curl:*)",
+      "Bash(./gradlew compileKotlin:*)",
+      "Bash(python3:*)",
+      "Bash(brew install:*)",
+      "Skill(spec:review)",
+      "Bash(gh pr:*)",
+      "Bash(gh api:*)"
     ]
   }
 }
