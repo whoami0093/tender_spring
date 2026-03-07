@@ -56,7 +56,7 @@ enum class SubscriptionStatus { ACTIVE, PAUSED }
 
 fun Subscription.toFilters() = TenderFilters(
     regions = filterRegions?.split(",")?.mapNotNull { it.trim().toIntOrNull() } ?: emptyList(),
-    objectInfo = filterObjectInfo,
+    keywords = filterObjectInfo?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
     customerInn = filterCustomerInn,
     maxPriceFrom = filterMaxPriceFrom,
     maxPriceTo = filterMaxPriceTo,

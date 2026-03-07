@@ -34,7 +34,7 @@ class SubscriptionService(
             label = req.label
             emails = mapper.writeValueAsString(req.emails)
             filterRegions = req.filters.regions.takeIf { it.isNotEmpty() }?.joinToString(",")
-            filterObjectInfo = req.filters.objectInfo
+            filterObjectInfo = req.filters.keywords.takeIf { it.isNotEmpty() }?.joinToString(",")
             filterCustomerInn = req.filters.customerInn
             filterMaxPriceFrom = req.filters.maxPriceFrom
             filterMaxPriceTo = req.filters.maxPriceTo

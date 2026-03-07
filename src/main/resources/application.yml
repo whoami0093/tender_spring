@@ -45,6 +45,11 @@ spring:
       mail.smtp.auth: false
       mail.smtp.starttls.enable: false
 
+  security:
+    user:
+      name: ${ADMIN_USER:admin}
+      password: ${ADMIN_PASSWORD:changeme}
+
   jackson:
     default-property-inclusion: non_null
     serialization:

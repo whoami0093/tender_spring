@@ -14,13 +14,20 @@ class GosplanFz44Source(private val gosplanRestClient: RestClient) : TenderSourc
     override val sourceKey = "GOSPLAN_44"
 
     override fun fetch(filters: TenderFilters, publishedAfter: Instant): List<Tender> {
+        val keywordsToFetch = filters.keywords.ifEmpty { listOf(null) }
+        return keywordsToFetch
+            .flatMap { keyword -> fetchPage(filters, publishedAfter, keyword) }
+            .distinctBy { it.purchaseNumber }
+    }
+
+    private fun fetchPage(filters: TenderFilters, publishedAfter: Instant, keyword: String?): List<Tender> {
         val response = gosplanRestClient.get()
             .uri { builder ->
                 builder.path("/fz44/purchases")
                     .queryParam("published_after", publishedAfter.toString())
                     .queryParam("limit", 100)
                     .apply {
-                        filters.objectInfo?.let { queryParam("object_info", it) }
+                        keyword?.let { queryParam("object_info", it) }
                         filters.customerInn?.let { queryParam("customer", it) }
                         filters.maxPriceFrom?.let { queryParam("max_price_ge", it) }
                         filters.maxPriceTo?.let { queryParam("max_price_le", it) }

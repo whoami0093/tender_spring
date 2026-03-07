@@ -44,6 +44,32 @@ curl http://localhost:8080/api/v1/users
 ./gradlew test
 ```
 
+## Admin Panel
+
+Веб-панель управления подписками доступна по адресу `/admin` (Basic Auth).
+
+```bash
+# Локальная разработка фронтенда (hot reload)
+cd frontend && npm install && npm run dev
+# Vite proxy не нужен — при сборке всё в одном origin
+
+# Переменные окружения для доступа в панель
+ADMIN_USER=admin          # default: admin
+ADMIN_PASSWORD=changeme   # default: changeme
+```
+
+## Деплой через Docker
+
+```bash
+docker build -t zakupki-app .
+docker run -p 8080:8080 \
+  -e DB_HOST=... -e DB_USER=... -e DB_PASSWORD=... \
+  -e REDIS_HOST=... \
+  -e ADMIN_USER=admin -e ADMIN_PASSWORD=secret \
+  -e GOSPLAN_API_KEY=... \
+  zakupki-app
+```
+
 ## Добавление новой фичи (spec-based)
 
 ```bash
