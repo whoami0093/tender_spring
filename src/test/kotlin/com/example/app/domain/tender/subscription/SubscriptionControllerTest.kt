@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.security.test.context.support.WithMockUser
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf
 import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.delete
@@ -69,6 +70,7 @@ class SubscriptionControllerTest {
 
         mockMvc
             .post("/api/v1/subscriptions") {
+                with(csrf())
                 contentType = MediaType.APPLICATION_JSON
                 content =
                     """
@@ -89,6 +91,7 @@ class SubscriptionControllerTest {
     fun `POST subscriptions returns 422 when source is blank`() {
         mockMvc
             .post("/api/v1/subscriptions") {
+                with(csrf())
                 contentType = MediaType.APPLICATION_JSON
                 content = """{"source": "", "emails": ["user@example.com"]}"""
             }.andExpect {
@@ -100,6 +103,7 @@ class SubscriptionControllerTest {
     fun `POST subscriptions returns 422 when emails list is empty`() {
         mockMvc
             .post("/api/v1/subscriptions") {
+                with(csrf())
                 contentType = MediaType.APPLICATION_JSON
                 content = """{"source": "GOSPLAN_44", "emails": []}"""
             }.andExpect {
@@ -116,6 +120,7 @@ class SubscriptionControllerTest {
 
         mockMvc
             .patch("/api/v1/subscriptions/1/status") {
+                with(csrf())
                 contentType = MediaType.APPLICATION_JSON
                 content = """{"status": "PAUSED"}"""
             }.andExpect {
@@ -131,7 +136,7 @@ class SubscriptionControllerTest {
         every { service.delete(1L) } just runs
 
         mockMvc
-            .delete("/api/v1/subscriptions/1")
+            .delete("/api/v1/subscriptions/1") { with(csrf()) }
             .andExpect {
                 status { isNoContent() }
             }
