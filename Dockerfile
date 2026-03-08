@@ -10,7 +10,7 @@ RUN npm run build
 FROM eclipse-temurin:21 AS builder
 WORKDIR /app
 COPY . .
-COPY --from=frontend /app/frontend/dist src/main/resources/static/admin
+COPY --from=frontend /app/src/main/resources/static/admin src/main/resources/static/admin
 RUN ./gradlew bootJar -x frontendBuild -x test --no-daemon
 
 # Stage 3: Runtime image
