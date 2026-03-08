@@ -3,7 +3,7 @@
 **Created:** 2026-03-08
 **Status:**
 
-- [ ] Requirements
-- [ ] Design
-- [ ] Tasks
-- [ ] Implementation
+- [x] Requirements
+- [x] Design
+- [x] Tasks
+- [x] Implementation (HTTP; HTTPS pending domain)
