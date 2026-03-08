@@ -26,7 +26,11 @@
       "Bash(open:*)",
       "Bash(./gradlew ktlintCheck:*)",
       "Bash(./gradlew ktlintFormat:*)",
-      "Bash(./gradlew detekt:*)"
+      "Bash(./gradlew detekt:*)",
+      "Bash(gh run:*)",
+      "Bash(./gradlew compileTestKotlin:*)",
+      "WebFetch(domain:timeweb.cloud)",
+      "WebFetch(domain:resend.com)"
     ]
   }
 }
