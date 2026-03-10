@@ -10,7 +10,6 @@ import org.springframework.web.util.ContentCachingResponseWrapper
 
 @Component
 class AccessLogFilter : OncePerRequestFilter() {
-
     private val log = LoggerFactory.getLogger(AccessLogFilter::class.java)
 
     private val sensitiveFields = setOf("password", "token", "authorization", "secret", "key")
@@ -42,8 +41,7 @@ class AccessLogFilter : OncePerRequestFilter() {
         wrapped.copyBodyToResponse()
     }
 
-    public override fun shouldNotFilter(request: HttpServletRequest): Boolean =
-        request.requestURI.startsWith("/actuator")
+    public override fun shouldNotFilter(request: HttpServletRequest): Boolean = request.requestURI.startsWith("/actuator")
 
     internal fun maskQuery(query: String): String =
         query.split("&").joinToString("&") { param ->

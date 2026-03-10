@@ -9,7 +9,6 @@ import org.springframework.mock.web.MockHttpServletRequest
 import org.springframework.mock.web.MockHttpServletResponse
 
 class AccessLogFilterTest {
-
     private val filter = AccessLogFilter()
 
     @Test
