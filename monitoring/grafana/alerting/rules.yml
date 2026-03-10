@@ -1,0 +1,97 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: spring-app-alerts
+    folder: App
+    interval: 1m
+    rules:
+      - uid: alert-high-error-rate
+        title: HighErrorRate
+        condition: C
+        for: 5m
+        annotations:
+          summary: "High error rate detected"
+          description: "5xx error rate is above 5% for the last 5 minutes"
+        labels:
+          severity: critical
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            model:
+              expr: sum(rate(http_server_requests_seconds_count{status=~"5.."}[5m]))
+              instant: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: B
+            datasourceUid: prometheus
+            model:
+              expr: sum(rate(http_server_requests_seconds_count[5m]))
+              instant: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: B
+          - refId: C
+            datasourceUid: "__expr__"
+            model:
+              type: math
+              expression: "$A / $B > 0.05"
+              refId: C
+
+      - uid: alert-high-latency-p95
+        title: HighLatencyP95
+        condition: A
+        for: 5m
+        annotations:
+          summary: "High p95 latency"
+          description: "p95 request latency is above 2 seconds"
+        labels:
+          severity: warning
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            model:
+              expr: histogram_quantile(0.95, sum by(le) (rate(http_server_requests_seconds_bucket[5m]))) > 2
+              instant: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+
+      - uid: alert-high-heap-usage
+        title: HighHeapUsage
+        condition: A
+        for: 10m
+        annotations:
+          summary: "JVM heap usage is high"
+          description: "JVM heap usage is above 85%"
+        labels:
+          severity: warning
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            model:
+              expr: jvm_memory_used_bytes{area="heap"} / jvm_memory_max_bytes{area="heap"} > 0.85
+              instant: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+
+      - uid: alert-app-down
+        title: AppDown
+        condition: A
+        for: 1m
+        annotations:
+          summary: "Application is down"
+          description: "Spring Boot app is not responding to Prometheus scrape"
+        labels:
+          severity: critical
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            model:
+              expr: up{job="spring-app"} == 0
+              instant: false
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
