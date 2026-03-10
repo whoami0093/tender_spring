@@ -47,6 +47,9 @@ dependencies {
     // Email
     implementation("org.springframework.boot:spring-boot-starter-mail")
 
+    // Micrometer Prometheus registry
+    runtimeOnly("io.micrometer:micrometer-registry-prometheus")
+
     // Redis connection pool
     implementation("org.apache.commons:commons-pool2")
 

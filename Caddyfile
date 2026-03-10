@@ -1,3 +1,19 @@
-{$APP_DOMAIN} {
-    reverse_proxy app:8080
+# Без домена — слушаем на порту 80 по IP (без HTTPS)
+:80 {
+    handle /monitoring* {
+        reverse_proxy grafana:3000
+    }
+    handle {
+        reverse_proxy app:8080
+    }
 }
+
+# С доменом — раскомментировать вместо :80 выше
+# {$APP_DOMAIN} {
+#     handle /monitoring* {
+#         reverse_proxy grafana:3000
+#     }
+#     handle {
+#         reverse_proxy app:8080
+#     }
+# }
