@@ -3,7 +3,6 @@ package com.example.app.domain.tender.source.gosplan
 import com.example.app.domain.tender.source.Tender
 import com.fasterxml.jackson.annotation.JsonProperty
 import java.math.BigDecimal
-import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
