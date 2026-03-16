@@ -23,10 +23,11 @@ class GosplanClientConfig {
             JdkClientHttpRequestFactory(httpClient).apply {
                 setReadTimeout(timeout)
             }
+        val baseUrl = props.baseUrl.ifBlank { "https://v2test.gosplan.info" }
         val builder =
             RestClient
                 .builder()
-                .baseUrl(props.baseUrl)
+                .baseUrl(baseUrl)
                 .requestFactory(factory)
                 .defaultHeader("User-Agent", "Mozilla/5.0 (compatible; ZakupkiMonitor/1.0)")
         if (!props.apiKey.isNullOrBlank()) {
