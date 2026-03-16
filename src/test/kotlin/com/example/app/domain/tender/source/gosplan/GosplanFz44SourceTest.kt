@@ -6,6 +6,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.time.Instant
+import java.time.LocalDateTime
 
 class GosplanFz44SourceTest {
     private val source = GosplanFz44Source(mockk(relaxed = true))
@@ -24,9 +25,9 @@ class GosplanFz44SourceTest {
                 customers = listOf("7710538450"),
                 maxPrice = BigDecimal("500000.00"),
                 currencyCode = "RUB",
-                collectingFinishedAt = Instant.parse("2026-04-01T10:00:00Z"),
+                collectingFinishedAt = LocalDateTime.of(2026, 4, 1, 10, 0, 0),
                 submissionCloseAt = null,
-                publishedAt = Instant.parse("2026-03-01T08:00:00Z"),
+                publishedAt = LocalDateTime.of(2026, 3, 1, 8, 0, 0),
                 region = 77,
             )
 

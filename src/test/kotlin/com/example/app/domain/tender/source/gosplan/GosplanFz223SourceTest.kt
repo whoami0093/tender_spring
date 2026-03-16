@@ -5,6 +5,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 class GosplanFz223SourceTest {
     private val source = GosplanFz223Source(mockk(relaxed = true))
@@ -16,7 +18,7 @@ class GosplanFz223SourceTest {
 
     @Test
     fun `toTender uses submission_close_at as deadline for 223-FZ`() {
-        val submissionClose = Instant.parse("2026-05-01T12:00:00Z")
+        val submissionClose = LocalDateTime.of(2026, 5, 1, 12, 0, 0)
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "223001002003004005",
@@ -26,13 +28,13 @@ class GosplanFz223SourceTest {
                 currencyCode = "RUB",
                 collectingFinishedAt = null,
                 submissionCloseAt = submissionClose,
-                publishedAt = Instant.parse("2026-03-10T09:00:00Z"),
+                publishedAt = LocalDateTime.of(2026, 3, 10, 9, 0, 0),
                 region = 78,
             )
 
         val tender = dto.toTender("GOSPLAN_223")
 
-        assertThat(tender.deadline).isEqualTo(submissionClose)
+        assertThat(tender.deadline).isEqualTo(submissionClose.toInstant(ZoneOffset.UTC))
         assertThat(tender.source).isEqualTo("GOSPLAN_223")
         assertThat(tender.eisUrl).contains("223")
         assertThat(tender.eisUrl).contains("223001002003004005")
@@ -40,8 +42,8 @@ class GosplanFz223SourceTest {
 
     @Test
     fun `toTender prefers collectingFinishedAt over submissionCloseAt when both present`() {
-        val collectingFinished = Instant.parse("2026-04-15T10:00:00Z")
-        val submissionClose = Instant.parse("2026-05-01T12:00:00Z")
+        val collectingFinished = LocalDateTime.of(2026, 4, 15, 10, 0, 0)
+        val submissionClose = LocalDateTime.of(2026, 5, 1, 12, 0, 0)
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "NUM-001",
@@ -57,6 +59,6 @@ class GosplanFz223SourceTest {
 
         val tender = dto.toTender("GOSPLAN_223")
 
-        assertThat(tender.deadline).isEqualTo(collectingFinished)
+        assertThat(tender.deadline).isEqualTo(collectingFinished.toInstant(ZoneOffset.UTC))
     }
 }
