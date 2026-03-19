@@ -7,6 +7,7 @@ import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.example.app.domain.tender.subscription.Subscription
 import com.example.app.domain.tender.subscription.SubscriptionRepository
 import com.example.app.domain.tender.subscription.SubscriptionStatus
+import io.micrometer.core.instrument.MeterRegistry
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -60,6 +61,7 @@ class SubscriptionProcessorTest {
     private val registry = mockk<TenderSourceRegistry>()
     private val emailService = mockk<EmailService>(relaxed = true)
     private val composer = mockk<TenderEmailComposer>()
+    private val meterRegistry = mockk<MeterRegistry>(relaxed = true)
 
     private val processor =
         SubscriptionProcessor(
@@ -68,6 +70,7 @@ class SubscriptionProcessorTest {
             registry,
             emailService,
             composer,
+            meterRegistry
         )
 
     private val tenderSource = mockk<TenderSource>()
