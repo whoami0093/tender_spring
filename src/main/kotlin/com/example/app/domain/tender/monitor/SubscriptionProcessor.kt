@@ -51,7 +51,7 @@ class SubscriptionProcessor(
                 emailService.send(composer.compose(sub, newTenders))
                 log.info("subscription={} source={} new={}", sub.id, sub.source, newTenders.size)
             } else {
-                log.debug("subscription={} no new tenders", sub.id)
+                log.info("subscription={} source={} new=0", sub.id, sub.source)
             }
 
             val maxPublishedAt = fetched.mapNotNull { it.publishedAt }.maxOrNull()
