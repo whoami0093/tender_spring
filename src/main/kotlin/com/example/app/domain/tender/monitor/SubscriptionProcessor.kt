@@ -54,7 +54,10 @@ class SubscriptionProcessor(
                 log.debug("subscription={} no new tenders", sub.id)
             }
 
-            sub.lastCheckedAt = Instant.now()
+            val maxPublishedAt = fetched.mapNotNull { it.publishedAt }.maxOrNull()
+            if (maxPublishedAt != null) {
+                sub.lastCheckedAt = maxPublishedAt
+            }
             sub.updatedAt = Instant.now()
         }.onFailure { ex ->
             log.error("Monitor failed for subscription={}", sub.id, ex)
