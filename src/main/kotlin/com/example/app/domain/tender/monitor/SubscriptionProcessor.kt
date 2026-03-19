@@ -4,6 +4,8 @@ import com.example.app.common.email.EmailService
 import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.example.app.domain.tender.subscription.SubscriptionRepository
 import com.example.app.domain.tender.subscription.toFilters
+import io.micrometer.core.instrument.MeterRegistry
+import io.micrometer.core.instrument.Timer
 import org.slf4j.LoggerFactory
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
@@ -18,6 +20,7 @@ class SubscriptionProcessor(
     private val registry: TenderSourceRegistry,
     private val emailService: EmailService,
     private val composer: TenderEmailComposer,
+    private val meterRegistry: MeterRegistry,
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
@@ -33,6 +36,10 @@ class SubscriptionProcessor(
         }
 
         val publishedAfter = sub.lastCheckedAt!!
+        val subId = sub.id.toString()
+        val sourceName = sub.source
+
+        val sample = Timer.start(meterRegistry)
         runCatching {
             val source = registry.get(sub.source)
             val fetched = withRetry { source.fetch(sub.toFilters(), publishedAfter) }
@@ -50,8 +57,16 @@ class SubscriptionProcessor(
                 seenTenderRepository.saveAll(newTenders.map { SeenTender.from(sub, it) })
                 emailService.send(composer.compose(sub, newTenders))
                 log.info("subscription={} source={} new={}", sub.id, sub.source, newTenders.size)
+                meterRegistry.counter("monitor.tenders.found", "subscription_id", subId, "source", sourceName)
+                    .increment(newTenders.size.toDouble())
+                meterRegistry.counter("monitor.emails.sent", "subscription_id", subId)
+                    .increment()
+                meterRegistry.counter("monitor.cycles", "subscription_id", subId, "source", sourceName, "result", "found")
+                    .increment()
             } else {
                 log.info("subscription={} source={} new=0", sub.id, sub.source)
+                meterRegistry.counter("monitor.cycles", "subscription_id", subId, "source", sourceName, "result", "empty")
+                    .increment()
             }
 
             val maxPublishedAt = fetched.mapNotNull { it.publishedAt }.maxOrNull()
@@ -61,8 +76,12 @@ class SubscriptionProcessor(
             sub.updatedAt = Instant.now()
         }.onFailure { ex ->
             log.error("Monitor failed for subscription={}", sub.id, ex)
-            // subscription stays active, lastCheckedAt not updated
+            meterRegistry.counter("monitor.api.errors", "subscription_id", subId, "source", sourceName)
+                .increment()
+            meterRegistry.counter("monitor.cycles", "subscription_id", subId, "source", sourceName, "result", "error")
+                .increment()
         }
+        sample.stop(meterRegistry.timer("monitor.cycle.duration", "subscription_id", subId, "source", sourceName))
     }
 
     private fun <T> withRetry(
