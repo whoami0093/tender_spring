@@ -24,6 +24,7 @@ class SubscriptionProcessor(
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
 
+    @Suppress("LongMethod")
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     fun process(subscriptionId: Long) {
         val sub = subscriptionRepository.findByIdOrNull(subscriptionId) ?: return
