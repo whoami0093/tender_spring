@@ -70,7 +70,7 @@ class SubscriptionProcessorTest {
             registry,
             emailService,
             composer,
-            meterRegistry
+            meterRegistry,
         )
 
     private val tenderSource = mockk<TenderSource>()
