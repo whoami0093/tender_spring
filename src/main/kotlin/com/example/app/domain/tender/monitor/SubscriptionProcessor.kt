@@ -58,27 +58,42 @@ class SubscriptionProcessor(
                 seenTenderRepository.saveAll(newTenders.map { SeenTender.from(sub, it) })
                 emailService.send(composer.compose(sub, newTenders))
                 log.info("subscription={} source={} new={}", sub.id, sub.source, newTenders.size)
-                meterRegistry.counter(
-                    "monitor.tenders.found",
-                    "subscription_id", subId,
-                    "source", sourceName,
-                ).increment(newTenders.size.toDouble())
-                meterRegistry.counter("monitor.emails.sent", "subscription_id", subId)
-                    .increment()
-                meterRegistry.counter(
-                    "monitor.cycles",
-                    "subscription_id", subId,
-                    "source", sourceName,
-                    "result", "found",
-                ).increment()
+                meterRegistry
+                    .counter(
+                        "monitor.tenders.found",
+                        "subscription_id",
+                        subId,
+                        "source",
+                        sourceName,
+                    ).increment(newTenders.size.toDouble())
+                meterRegistry
+                    .counter(
+                        "monitor.emails.sent",
+                        "subscription_id",
+                        subId,
+                    ).increment()
+                meterRegistry
+                    .counter(
+                        "monitor.cycles",
+                        "subscription_id",
+                        subId,
+                        "source",
+                        sourceName,
+                        "result",
+                        "found",
+                    ).increment()
             } else {
                 log.info("subscription={} source={} new=0", sub.id, sub.source)
-                meterRegistry.counter(
-                    "monitor.cycles",
-                    "subscription_id", subId,
-                    "source", sourceName,
-                    "result", "empty",
-                ).increment()
+                meterRegistry
+                    .counter(
+                        "monitor.cycles",
+                        "subscription_id",
+                        subId,
+                        "source",
+                        sourceName,
+                        "result",
+                        "empty",
+                    ).increment()
             }
 
             val maxPublishedAt = fetched.mapNotNull { it.publishedAt }.maxOrNull()
@@ -88,23 +103,33 @@ class SubscriptionProcessor(
             sub.updatedAt = Instant.now()
         }.onFailure { ex ->
             log.error("Monitor failed for subscription={}", sub.id, ex)
-            meterRegistry.counter(
-                "monitor.api.errors",
-                "subscription_id", subId,
-                "source", sourceName,
-            ).increment()
-            meterRegistry.counter(
-                "monitor.cycles",
-                "subscription_id", subId,
-                "source", sourceName,
-                "result", "error",
-            ).increment()
+            meterRegistry
+                .counter(
+                    "monitor.api.errors",
+                    "subscription_id",
+                    subId,
+                    "source",
+                    sourceName,
+                ).increment()
+            meterRegistry
+                .counter(
+                    "monitor.cycles",
+                    "subscription_id",
+                    subId,
+                    "source",
+                    sourceName,
+                    "result",
+                    "error",
+                ).increment()
         }
-        val timer = meterRegistry.timer(
-            "monitor.cycle.duration",
-            "subscription_id", subId,
-            "source", sourceName,
-        )
+        val timer =
+            meterRegistry.timer(
+                "monitor.cycle.duration",
+                "subscription_id",
+                subId,
+                "source",
+                sourceName,
+            )
         sample.stop(timer)
     }
 
