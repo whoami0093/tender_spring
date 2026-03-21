@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { TagInput } from '@/components/ui/tag-input'
 import { RegionSelect } from '@/components/ui/region-select'
 import { SOURCE_OPTIONS } from '@/lib/sources'
-import type { SubscriptionResponse } from '@/api/types'
+import type { SubscriptionRequest, SubscriptionResponse } from '@/api/types'
 
 const schema = z.object({
   label: z.string().min(1, 'Название обязательно'),
@@ -38,18 +38,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 interface Props {
   existing?: SubscriptionResponse
-  onSubmit: (data: {
-    source: string
-    label?: string
-    emails: string[]
-    filters: {
-      regions: number[]
-      keywords: string[]
-      customerInn?: string
-      maxPriceFrom?: number
-      maxPriceTo?: number
-    }
-  }) => void
+  onSubmit: (data: SubscriptionRequest) => void
   isLoading: boolean
   onCancel: () => void
 }
@@ -143,12 +132,25 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
       <div className="space-y-1.5">
         <Label>Ключевые слова</Label>
         <p className="text-xs text-muted-foreground">
-          Каждое слово — отдельный запрос. Больше слов = больше тендеров.
+          Каждое слово — отдельный запрос к API. Больше слов = больше тендеров.
         </p>
         <TagInput
           value={keywords}
           onChange={setKeywords}
           placeholder="хозтовары, моющие средства…"
+        />
+      </div>
+
+      {/* Локальный фильтр */}
+      <div className="space-y-1.5">
+        <Label>Фильтр по содержанию (хозка)</Label>
+        <p className="text-xs text-muted-foreground">
+          Из результатов API останутся только тендеры, в названии которых есть хотя бы одно из этих слов.
+        </p>
+        <TagInput
+          value={localKeywords}
+          onChange={setLocalKeywords}
+          placeholder="хоз, уборк, моющ, чистящ…"
         />
       </div>
 
@@ -159,18 +161,6 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
         <div className="space-y-1.5">
           <Label>Регионы</Label>
           <RegionSelect value={regions} onChange={setRegions} />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label>Локальные ключевые слова</Label>
-          <p className="text-xs text-muted-foreground">
-            Вторичный фильтр по названию тендера. Тендер попадёт в рассылку только если его название содержит хотя бы одно из этих слов.
-          </p>
-          <TagInput
-            value={localKeywords}
-            onChange={setLocalKeywords}
-            placeholder="хоз, уборк, моющ…"
-          />
         </div>
 
         <div className="space-y-1.5">
