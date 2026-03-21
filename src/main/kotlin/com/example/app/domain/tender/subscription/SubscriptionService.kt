@@ -45,6 +45,10 @@ class SubscriptionService(
                 req.filters.keywords
                     .takeIf { it.isNotEmpty() }
                     ?.joinToString(",")
+            filterLocalKeywords =
+                req.filters.localKeywords
+                    .takeIf { it.isNotEmpty() }
+                    ?.joinToString(",")
             filterCustomerInn = req.filters.customerInn
             filterMaxPriceFrom = req.filters.maxPriceFrom
             filterMaxPriceTo = req.filters.maxPriceTo

@@ -58,6 +58,7 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
   const [emails, setEmails] = useState<string[]>(existing?.emails ?? [])
   const [emailError, setEmailError] = useState<string | null>(null)
   const [keywords, setKeywords] = useState<string[]>(existing?.filters.keywords ?? [])
+  const [localKeywords, setLocalKeywords] = useState<string[]>(existing?.filters.localKeywords ?? [])
   const [regions, setRegions] = useState<number[]>(existing?.filters.regions ?? [])
 
   const {
@@ -101,6 +102,7 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
       filters: {
         regions,
         keywords,
+        localKeywords,
         customerInn: values.customerInn || undefined,
         maxPriceFrom: values.maxPriceFrom ? parseFloat(values.maxPriceFrom) : undefined,
         maxPriceTo: values.maxPriceTo ? parseFloat(values.maxPriceTo) : undefined,
@@ -157,6 +159,18 @@ export function SubscriptionForm({ existing, onSubmit, isLoading, onCancel }: Pr
         <div className="space-y-1.5">
           <Label>Регионы</Label>
           <RegionSelect value={regions} onChange={setRegions} />
+        </div>
+
+        <div className="space-y-1.5">
+          <Label>Локальные ключевые слова</Label>
+          <p className="text-xs text-muted-foreground">
+            Вторичный фильтр по названию тендера. Тендер попадёт в рассылку только если его название содержит хотя бы одно из этих слов.
+          </p>
+          <TagInput
+            value={localKeywords}
+            onChange={setLocalKeywords}
+            placeholder="хоз, уборк, моющ…"
+          />
         </div>
 
         <div className="space-y-1.5">
