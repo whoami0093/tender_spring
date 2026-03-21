@@ -35,7 +35,7 @@ class GosplanFz44Source(
                 .get()
                 .uri { builder ->
                     builder
-                        .path("/fz223/purchases")
+                        .path("/fz44/purchases")
                         .queryParam("published_after", publishedAfter.toString())
                         .queryParam("limit", 100)
                         .apply {
