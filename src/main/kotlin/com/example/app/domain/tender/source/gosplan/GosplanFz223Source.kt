@@ -12,7 +12,7 @@ import java.time.Instant
 class GosplanFz223Source(
     private val gosplanRestClient: RestClient,
 ) : TenderSource {
-    override val sourceKey = "GOSPLAN_223"
+    override val sourceKey = GOSPLAN_223
 
     override fun fetch(
         filters: TenderFilters,
@@ -22,6 +22,7 @@ class GosplanFz223Source(
         return keywordsToFetch
             .flatMap { keyword -> fetchPage(filters, publishedAfter, keyword) }
             .distinctBy { it.purchaseNumber }
+            .filter { filters.matchesTender(it) }
     }
 
     private fun fetchPage(
@@ -34,15 +35,15 @@ class GosplanFz223Source(
                 .get()
                 .uri { builder ->
                     builder
-                        .path("/fz223/purchases")
-                        .queryParam("published_after", publishedAfter.toString())
-                        .queryParam("limit", 100)
+                        .path(/fz223/purchases)
+                        .queryParam(published_after, publishedAfter.toString())
+                        .queryParam(limit, 100)
                         .apply {
-                            keyword?.let { queryParam("object_info", it) }
-                            filters.customerInn?.let { queryParam("customer", it) }
-                            filters.maxPriceFrom?.let { queryParam("max_price_ge", it) }
-                            filters.maxPriceTo?.let { queryParam("max_price_le", it) }
-                            filters.regions.forEach { queryParam("region", it) }
+                            keyword?.let { queryParam(object_info, it) }
+                            filters.customerInn?.let { queryParam(customer, it) }
+                            filters.maxPriceFrom?.let { queryParam(max_price_ge, it) }
+                            filters.maxPriceTo?.let { queryParam(max_price_le, it) }
+                            filters.regions.forEach { queryParam(region, it) }
                         }.build()
                 }.retrieve()
                 .body(object : ParameterizedTypeReference<List<GosplanPurchaseDto>>() {})
