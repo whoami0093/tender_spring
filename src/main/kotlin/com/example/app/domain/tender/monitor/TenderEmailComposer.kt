@@ -26,7 +26,7 @@ class TenderEmailComposer {
         tenders: List<Tender>,
     ): EmailMessage {
         val label = subscription.label ?: "подписка #${subscription.id}"
-        val subject = "[ЗакупкиМонитор] ${tenders.size} новых закупок — «$label»"
+        val subject = "Мониторинг закупок ${tenders.size} новых закупок — «$label»"
         val body = buildHtml(label, tenders)
         return EmailMessage(
             to = subscription.emailList(),

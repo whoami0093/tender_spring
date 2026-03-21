@@ -12,7 +12,7 @@ import java.time.Instant
 class GosplanFz44Source(
     private val gosplanRestClient: RestClient,
 ) : TenderSource {
-    override val sourceKey = GOSPLAN_44
+    override val sourceKey = "GOSPLAN_44"
 
     override fun fetch(
         filters: TenderFilters,
@@ -35,15 +35,15 @@ class GosplanFz44Source(
                 .get()
                 .uri { builder ->
                     builder
-                        .path(/fz44/purchases)
-                        .queryParam(published_after, publishedAfter.toString())
-                        .queryParam(limit, 100)
+                        .path("/fz223/purchases")
+                        .queryParam("published_after", publishedAfter.toString())
+                        .queryParam("limit", 100)
                         .apply {
-                            keyword?.let { queryParam(object_info, it) }
-                            filters.customerInn?.let { queryParam(customer, it) }
-                            filters.maxPriceFrom?.let { queryParam(max_price_ge, it) }
-                            filters.maxPriceTo?.let { queryParam(max_price_le, it) }
-                            filters.regions.forEach { queryParam(region, it) }
+                            keyword?.let { queryParam("object_info", it) }
+                            filters.customerInn?.let { queryParam("customer", it) }
+                            filters.maxPriceFrom?.let { queryParam("max_price_ge", it) }
+                            filters.maxPriceTo?.let { queryParam("max_price_le", it) }
+                            filters.regions.forEach { queryParam("region", it) }
                         }.build()
                 }.retrieve()
                 .body(object : ParameterizedTypeReference<List<GosplanPurchaseDto>>() {})

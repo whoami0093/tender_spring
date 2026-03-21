@@ -15,7 +15,7 @@ import java.math.BigDecimal
 import java.time.Instant
 
 @Entity
-@Table(name = subscriptions)
+@Table(name = "subscriptions")
 class Subscription(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ class Subscription(
     val source: String,
     @Column
     var label: String? = null,
-    @Column(nullable = false, columnDefinition = TEXT)
+    @Column(nullable = false, columnDefinition = "TEXT")
     var emails: String,
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -53,9 +53,9 @@ enum class SubscriptionStatus { ACTIVE, PAUSED }
 
 fun Subscription.toFilters() =
     TenderFilters(
-        regions = filterRegions?.split(,)?.mapNotNull { it.trim().toIntOrNull() } ?: emptyList(),
-        keywords = filterObjectInfo?.split(,)?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
-        localKeywords = filterLocalKeywords?.split(,)?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
+        regions = filterRegions?.split(",")?.mapNotNull { it.trim().toIntOrNull() } ?: emptyList(),
+        keywords = filterObjectInfo?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
+        localKeywords = filterLocalKeywords?.split(",")?.map { it.trim() }?.filter { it.isNotEmpty() } ?: emptyList(),
         customerInn = filterCustomerInn,
         maxPriceFrom = filterMaxPriceFrom,
         maxPriceTo = filterMaxPriceTo,

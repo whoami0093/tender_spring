@@ -1,6 +1,7 @@
 package com.example.app.domain.tender.monitor
 
 import com.example.app.common.email.EmailService
+import com.example.app.domain.tender.source.Tender
 import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.example.app.domain.tender.subscription.SubscriptionRepository
 import com.example.app.domain.tender.subscription.toFilters
@@ -52,7 +53,7 @@ class SubscriptionProcessor(
                 } else {
                     seenTenderRepository.findSeenNumbers(sub.id, fetchedNumbers).toSet()
                 }
-            val newTenders = fetched.filter { it.purchaseNumber !in knownNumbers }
+            val newTenders: List<Tender> = fetched.filter { it.purchaseNumber !in knownNumbers }
 
             if (newTenders.isNotEmpty()) {
                 seenTenderRepository.saveAll(newTenders.map { SeenTender.from(sub, it) })
