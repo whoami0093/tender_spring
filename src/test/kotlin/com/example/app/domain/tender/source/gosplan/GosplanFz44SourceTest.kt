@@ -1,6 +1,5 @@
 package com.example.app.domain.tender.source.gosplan
 
-import com.example.app.domain.tender.source.TenderFilters
 import io.mockk.mockk
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,6 +14,8 @@ class GosplanFz44SourceTest {
     fun `sourceKey is GOSPLAN_44`() {
         assertThat(source.sourceKey).isEqualTo("GOSPLAN_44")
     }
+
+    // ── toTender mapping ─────────────────────────────────────────────────────
 
     @Test
     fun `toTender maps all fields correctly for GOSPLAN_44`() {
@@ -70,12 +71,21 @@ class GosplanFz44SourceTest {
     }
 
     @Test
-    fun `TenderFilters defaults are empty`() {
-        val filters = TenderFilters()
-        assertThat(filters.regions).isEmpty()
-        assertThat(filters.keywords).isEmpty()
-        assertThat(filters.customerInn).isNull()
-        assertThat(filters.maxPriceFrom).isNull()
-        assertThat(filters.maxPriceTo).isNull()
+    fun `toTender picks first customer INN when multiple customers provided`() {
+        val dto =
+            GosplanPurchaseDto(
+                purchaseNumber = "NUM-001",
+                objectInfo = "Test",
+                customers = listOf("1111111111", "2222222222"),
+                maxPrice = null,
+                currencyCode = null,
+                collectingFinishedAt = null,
+                submissionCloseAt = null,
+                publishedAt = null,
+                region = null,
+            )
+
+        assertThat(dto.toTender("GOSPLAN_44").customerInn).isEqualTo("1111111111")
     }
+
 }

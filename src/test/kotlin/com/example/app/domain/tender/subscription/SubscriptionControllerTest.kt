@@ -1,5 +1,6 @@
 package com.example.app.domain.tender.subscription
 
+import com.example.app.common.exception.NotFoundException
 import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
@@ -17,6 +18,7 @@ import org.springframework.test.web.servlet.delete
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.patch
 import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.put
 import java.time.Instant
 
 @WebMvcTest(SubscriptionController::class)
@@ -139,6 +141,58 @@ class SubscriptionControllerTest {
             .delete("/api/v1/subscriptions/1") { with(csrf()) }
             .andExpect {
                 status { isNoContent() }
+            }
+    }
+
+    // ── PUT /subscriptions/{id} ───────────────────────────────────────────────
+
+    @Test
+    fun `PUT subscription updates and returns 200`() {
+        every { service.update(1L, any()) } returns buildResponse(1L)
+
+        mockMvc
+            .put("/api/v1/subscriptions/1") {
+                with(csrf())
+                contentType = MediaType.APPLICATION_JSON
+                content =
+                    """
+                    {
+                      "label": "Updated Label",
+                      "emails": ["updated@example.com"],
+                      "filters": { "regions": [50] }
+                    }
+                    """.trimIndent()
+            }.andExpect {
+                status { isOk() }
+                jsonPath("$.id") { value(1) }
+            }
+    }
+
+    // ── GET /subscriptions/{id} — not found ───────────────────────────────────
+
+    @Test
+    fun `GET subscription by id returns 404 when not found`() {
+        every { service.findById(99L) } throws NotFoundException("Subscription not found: 99")
+
+        mockMvc
+            .get("/api/v1/subscriptions/99")
+            .andExpect {
+                status { isNotFound() }
+                jsonPath("$.code") { value("NOT_FOUND") }
+            }
+    }
+
+    // ── PUT validation ────────────────────────────────────────────────────────
+
+    @Test
+    fun `PUT subscription returns 422 when emails list is empty`() {
+        mockMvc
+            .put("/api/v1/subscriptions/1") {
+                with(csrf())
+                contentType = MediaType.APPLICATION_JSON
+                content = """{"emails": [], "filters": {}}"""
+            }.andExpect {
+                status { isUnprocessableEntity() }
             }
     }
 

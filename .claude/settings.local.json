@@ -30,7 +30,10 @@
       "Bash(gh run:*)",
       "Bash(./gradlew compileTestKotlin:*)",
       "WebFetch(domain:timeweb.cloud)",
-      "WebFetch(domain:resend.com)"
+      "WebFetch(domain:resend.com)",
+      "Bash(gh secret:*)",
+      "Bash(mkdir:*)",
+      "Skill(spec:tasks)"
     ]
   }
 }
