@@ -6,5 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 data class GosplanProperties(
     val baseUrl: String = "https://v2test.gosplan.info",
     val apiKey: String? = null,
-    val timeoutSeconds: Long = 15,
+    val connTimeoutSeconds: Long = 15,
+    val readTimeoutSeconds: Long = 60,
 )

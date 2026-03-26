@@ -13,15 +13,16 @@ import java.time.Duration
 class GosplanClientConfig {
     @Bean
     fun gosplanRestClient(props: GosplanProperties): RestClient {
-        val timeout = Duration.ofSeconds(props.timeoutSeconds)
+        val connTimeout = Duration.ofSeconds(props.connTimeoutSeconds)
+        val readTimeout = Duration.ofSeconds(props.readTimeoutSeconds)
         val httpClient =
             HttpClient
                 .newBuilder()
-                .connectTimeout(timeout)
+                .connectTimeout(connTimeout)
                 .build()
         val factory =
             JdkClientHttpRequestFactory(httpClient).apply {
-                setReadTimeout(timeout)
+                setReadTimeout(readTimeout)
             }
         val baseUrl = props.baseUrl.ifBlank { "https://v2test.gosplan.info" }
         val builder =
@@ -31,7 +32,7 @@ class GosplanClientConfig {
                 .requestFactory(factory)
                 .defaultHeader("User-Agent", "Mozilla/5.0 (compatible; ZakupkiMonitor/1.0)")
         if (!props.apiKey.isNullOrBlank()) {
-            builder.defaultHeader("X-Api-Key", props.apiKey!!)
+            builder.defaultHeader("X-Api-Key", props.apiKey)
         }
         return builder.build()
     }

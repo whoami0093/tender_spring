@@ -16,7 +16,7 @@ class GosplanFz44SourceIntegrationTest {
         GosplanProperties(
             baseUrl = "https://v2test.gosplan.info",
             apiKey = null,
-            timeoutSeconds = 15,
+            connTimeoutSeconds = 15,
         )
     private val restClient = GosplanClientConfig().gosplanRestClient(props)
     private val source = GosplanFz44Source(restClient)
