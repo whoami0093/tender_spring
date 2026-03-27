@@ -19,7 +19,6 @@ class GosplanClientConfig {
             HttpClient
                 .newBuilder()
                 .connectTimeout(connTimeout)
-                .version(HttpClient.Version.HTTP_1_1)
                 .build()
         val factory =
             JdkClientHttpRequestFactory(httpClient).apply {
