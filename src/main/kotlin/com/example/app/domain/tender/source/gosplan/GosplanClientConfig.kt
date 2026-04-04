@@ -1,13 +1,15 @@
 package com.example.app.domain.tender.source.gosplan
 
+import org.apache.hc.client5.http.config.ConnectionConfig
+import org.apache.hc.client5.http.config.RequestConfig
+import org.apache.hc.client5.http.impl.classic.HttpClients
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManagerBuilder
+import org.apache.hc.core5.util.Timeout
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.http.client.JdkClientHttpRequestFactory
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.web.client.RestClient
-import java.net.http.HttpClient
-import java.time.Duration
-import java.util.concurrent.Executors
 
 @Configuration
 @EnableConfigurationProperties(GosplanProperties::class)
@@ -15,18 +17,26 @@ class GosplanClientConfig {
 
     @Bean
     fun gosplanRestClient(props: GosplanProperties): RestClient {
-        val connTimeout = Duration.ofSeconds(props.connTimeoutSeconds)
-        val readTimeout = Duration.ofSeconds(props.readTimeoutSeconds)
-
-        val httpClient = HttpClient.newBuilder()
-            .connectTimeout(connTimeout)
-            .version(HttpClient.Version.HTTP_1_1)
-            .executor(Executors.newFixedThreadPool(10))
+        val connConfig = ConnectionConfig.custom()
+            .setConnectTimeout(Timeout.ofSeconds(props.connTimeoutSeconds))
             .build()
 
-        val factory = JdkClientHttpRequestFactory(httpClient).apply {
-            setReadTimeout(readTimeout)
-        }
+        val connManager = PoolingHttpClientConnectionManagerBuilder.create()
+            .setMaxConnPerRoute(5)
+            .setMaxConnTotal(10)
+            .setDefaultConnectionConfig(connConfig)
+            .build()
+
+        val requestConfig = RequestConfig.custom()
+            .setResponseTimeout(Timeout.ofSeconds(props.readTimeoutSeconds))
+            .build()
+
+        val httpClient = HttpClients.custom()
+            .setConnectionManager(connManager)
+            .setDefaultRequestConfig(requestConfig)
+            .build()
+
+        val factory = HttpComponentsClientHttpRequestFactory(httpClient)
 
         val baseUrl = props.baseUrl.ifBlank { "https://v2test.gosplan.info" }
 
@@ -34,7 +44,6 @@ class GosplanClientConfig {
             .baseUrl(baseUrl)
             .requestFactory(factory)
             .defaultHeader("User-Agent", "Mozilla/5.0 (compatible; ZakupkiMonitor/1.0)")
-            .defaultHeader("Connection", "close")
 
         if (!props.apiKey.isNullOrBlank()) {
             builder.defaultHeader("X-Api-Key", props.apiKey)

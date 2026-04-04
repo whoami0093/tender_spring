@@ -50,6 +50,9 @@ dependencies {
     // Micrometer Prometheus registry
     runtimeOnly("io.micrometer:micrometer-registry-prometheus")
 
+    // Apache HttpClient 5 (managed by Spring Boot BOM)
+    implementation("org.apache.httpcomponents.client5:httpclient5")
+
     // Redis connection pool
     implementation("org.apache.commons:commons-pool2")
 

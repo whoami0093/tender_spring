@@ -63,7 +63,8 @@ zakupki:
   gosplan:
     base-url: ${GOSPLAN_BASE_URL:https://v2test.gosplan.info}
     api-key: ${GOSPLAN_API_KEY:}
-    timeout-seconds: 15
+    conn-timeout-seconds: 15
+    read-timeout-seconds: 15
   monitor:
     interval-minutes: 30
 
