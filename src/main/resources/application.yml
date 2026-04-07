@@ -66,7 +66,7 @@ zakupki:
     conn-timeout-seconds: 15
     read-timeout-seconds: 15
   monitor:
-    interval-minutes: 30
+    interval-minutes: 120
 
 server:
   port: 8080

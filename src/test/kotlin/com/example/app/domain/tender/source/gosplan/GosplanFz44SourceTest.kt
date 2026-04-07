@@ -87,5 +87,4 @@ class GosplanFz44SourceTest {
 
         assertThat(dto.toTender("GOSPLAN_44").customerInn).isEqualTo("1111111111")
     }
-
 }

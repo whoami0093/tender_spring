@@ -4,6 +4,7 @@ import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'sonner'
 import { Layout } from '@/components/shared/Layout'
 import { SubscriptionsPage } from '@/pages/subscriptions/SubscriptionsPage'
+import { TendersPage } from '@/pages/tenders/TendersPage'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,7 @@ export default function App() {
             <Route element={<Layout />}>
               <Route index element={<Navigate to="/subscriptions" replace />} />
               <Route path="/subscriptions" element={<SubscriptionsPage />} />
+              <Route path="/tenders" element={<TendersPage />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -101,19 +101,21 @@ class SubscriptionServiceTest {
 
     @Test
     fun `create persists all filter fields correctly`() {
-        val req = SubscriptionRequest(
-            source = "GOSPLAN_44",
-            label = "My Sub",
-            emails = listOf("a@test.com", "b@test.com"),
-            filters = SubscriptionFiltersRequest(
-                regions = listOf(77, 50),
-                keywords = listOf("строительство", "ремонт"),
-                localKeywords = listOf("хоз"),
-                customerInn = "7710538450",
-                maxPriceFrom = BigDecimal("1000"),
-                maxPriceTo = BigDecimal("5000000"),
-            ),
-        )
+        val req =
+            SubscriptionRequest(
+                source = "GOSPLAN_44",
+                label = "My Sub",
+                emails = listOf("a@test.com", "b@test.com"),
+                filters =
+                    SubscriptionFiltersRequest(
+                        regions = listOf(77, 50),
+                        keywords = listOf("строительство", "ремонт"),
+                        localKeywords = listOf("хоз"),
+                        customerInn = "7710538450",
+                        maxPriceFrom = BigDecimal("1000"),
+                        maxPriceTo = BigDecimal("5000000"),
+                    ),
+            )
         every { registry.get("GOSPLAN_44") } returns mockk<TenderSource>()
         val slot = slot<Subscription>()
         every { repository.save(capture(slot)) } returns buildSubscription(1L)
@@ -133,11 +135,12 @@ class SubscriptionServiceTest {
 
     @Test
     fun `create stores null for empty filter lists`() {
-        val req = SubscriptionRequest(
-            source = "GOSPLAN_44",
-            emails = listOf("u@test.com"),
-            filters = SubscriptionFiltersRequest(), // all empty defaults
-        )
+        val req =
+            SubscriptionRequest(
+                source = "GOSPLAN_44",
+                emails = listOf("u@test.com"),
+                filters = SubscriptionFiltersRequest(), // all empty defaults
+            )
         every { registry.get("GOSPLAN_44") } returns mockk<TenderSource>()
         val slot = slot<Subscription>()
         every { repository.save(capture(slot)) } returns buildSubscription(1L)
@@ -156,18 +159,20 @@ class SubscriptionServiceTest {
         val entity = buildSubscription(1L)
         every { repository.findByIdOrNull(1L) } returns entity
 
-        val req = SubscriptionUpdateRequest(
-            label = "Updated Label",
-            emails = listOf("new@test.com"),
-            filters = SubscriptionFiltersRequest(
-                regions = listOf(77),
-                keywords = listOf("ремонт"),
-                localKeywords = listOf("хоз", "уборк"),
-                customerInn = "7710538450",
-                maxPriceFrom = BigDecimal("500"),
-                maxPriceTo = BigDecimal("100000"),
-            ),
-        )
+        val req =
+            SubscriptionUpdateRequest(
+                label = "Updated Label",
+                emails = listOf("new@test.com"),
+                filters =
+                    SubscriptionFiltersRequest(
+                        regions = listOf(77),
+                        keywords = listOf("ремонт"),
+                        localKeywords = listOf("хоз", "уборк"),
+                        customerInn = "7710538450",
+                        maxPriceFrom = BigDecimal("500"),
+                        maxPriceTo = BigDecimal("100000"),
+                    ),
+            )
 
         val result = service.update(1L, req)
 
@@ -184,12 +189,13 @@ class SubscriptionServiceTest {
 
     @Test
     fun `update clears filter fields when empty lists are provided`() {
-        val entity = buildSubscription(
-            1L,
-            filterRegions = "77",
-            filterObjectInfo = "строительство",
-            filterLocalKeywords = "хоз",
-        )
+        val entity =
+            buildSubscription(
+                1L,
+                filterRegions = "77",
+                filterObjectInfo = "строительство",
+                filterLocalKeywords = "хоз",
+            )
         every { repository.findByIdOrNull(1L) } returns entity
 
         service.update(1L, SubscriptionUpdateRequest(emails = listOf("u@test.com")))
