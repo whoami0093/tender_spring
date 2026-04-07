@@ -1,6 +1,8 @@
 package com.example.app.domain.tender.monitor
 
 import com.example.app.common.email.EmailService
+import com.example.app.domain.tender.Tender as TenderEntity
+import com.example.app.domain.tender.TenderRepository
 import com.example.app.domain.tender.source.Tender
 import com.example.app.domain.tender.source.TenderSourceRegistry
 import com.example.app.domain.tender.subscription.SubscriptionRepository
@@ -18,6 +20,7 @@ import java.time.Instant
 class SubscriptionProcessor(
     private val subscriptionRepository: SubscriptionRepository,
     private val seenTenderRepository: SeenTenderRepository,
+    private val tenderRepository: TenderRepository,
     private val registry: TenderSourceRegistry,
     private val emailService: EmailService,
     private val composer: TenderEmailComposer,
@@ -57,6 +60,8 @@ class SubscriptionProcessor(
 
             if (newTenders.isNotEmpty()) {
                 seenTenderRepository.saveAll(newTenders.map { SeenTender.from(sub, it) })
+                val existingNumbers = tenderRepository.findExistingPurchaseNumbers(newTenders.map { it.purchaseNumber }).toSet()
+                tenderRepository.saveAll(newTenders.filter { it.purchaseNumber !in existingNumbers }.map { it.toTenderEntity() })
                 emailService.send(composer.compose(sub, newTenders))
                 log.info("subscription={} source={} new={}", sub.id, sub.source, newTenders.size)
                 meterRegistry
@@ -142,3 +147,14 @@ class SubscriptionProcessor(
         return block()
     }
 }
+
+private fun Tender.toTenderEntity() = TenderEntity(
+    purchaseNumber = purchaseNumber,
+    title = objectInfo.ifBlank { purchaseNumber },
+    customerInn = customerInn,
+    amount = maxPrice,
+    currency = currency,
+    deadline = deadline,
+    publishedAt = publishedAt,
+    eisUrl = eisUrl,
+)

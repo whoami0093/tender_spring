@@ -49,7 +49,9 @@
       "Bash(./gradlew build:*)",
       "WebFetch(domain:zakupki.gov.ru)",
       "WebFetch(domain:v2test.gosplan.info)",
-      "Bash(./gradlew :compileTestKotlin)"
+      "Bash(./gradlew :compileTestKotlin)",
+      "Bash(xargs ls:*)",
+      "Bash(./gradlew :compileKotlin)"
     ]
   }
 }
