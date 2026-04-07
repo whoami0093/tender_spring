@@ -1,6 +1,8 @@
 package com.example.app.domain.tender.monitor
 
 import com.example.app.common.email.EmailService
+import com.example.app.domain.tender.TenderRepository
+import com.example.app.domain.tender.Tender as TenderEntity
 import com.example.app.domain.tender.source.Tender
 import com.example.app.domain.tender.source.TenderSource
 import com.example.app.domain.tender.source.TenderSourceRegistry
@@ -57,6 +59,7 @@ class MonitorServiceTest {
 
 class SubscriptionProcessorTest {
     private val subscriptionRepository = mockk<SubscriptionRepository>()
+    private val tenderRepository = mockk<TenderRepository>()
     private val seenTenderRepository = mockk<SeenTenderRepository>()
     private val registry = mockk<TenderSourceRegistry>()
     private val emailService = mockk<EmailService>(relaxed = true)
@@ -67,6 +70,7 @@ class SubscriptionProcessorTest {
         SubscriptionProcessor(
             subscriptionRepository,
             seenTenderRepository,
+            tenderRepository,
             registry,
             emailService,
             composer,
@@ -79,6 +83,8 @@ class SubscriptionProcessorTest {
     fun setUp() {
         every { registry.get(any()) } returns tenderSource
         every { seenTenderRepository.saveAll(any<List<SeenTender>>()) } returns emptyList()
+        every { tenderRepository.findExistingPurchaseNumbers(any()) } returns emptyList()
+        every { tenderRepository.saveAll(any<Iterable<TenderEntity>>()) } returns emptyList()
         every { composer.compose(any(), any()) } returns mockk(relaxed = true)
     }
 
@@ -110,6 +116,7 @@ class SubscriptionProcessorTest {
         processor.process(sub.id)
 
         verify(exactly = 1) { seenTenderRepository.saveAll(match<List<SeenTender>> { it.size == 2 }) }
+        verify(exactly = 1) { tenderRepository.saveAll(match<Iterable<TenderEntity>> { it.toList().size == 2 }) }
         verify(exactly = 1) { emailService.send(any()) }
         assertThat(sub.lastCheckedAt).isAfter(Instant.now().minusSeconds(5))
     }
