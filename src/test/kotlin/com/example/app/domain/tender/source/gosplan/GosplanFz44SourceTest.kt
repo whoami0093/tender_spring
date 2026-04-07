@@ -22,6 +22,7 @@ class GosplanFz44SourceTest {
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "0123456789012345678",
+                purchaseType = "purchaseEa44",
                 objectInfo = "Поставка компьютеров",
                 customers = listOf("7710538450"),
                 maxPrice = BigDecimal("500000.00"),
@@ -51,6 +52,7 @@ class GosplanFz44SourceTest {
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "NUM-001",
+                purchaseType = null,
                 objectInfo = null,
                 customers = null,
                 maxPrice = null,
@@ -75,6 +77,7 @@ class GosplanFz44SourceTest {
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "NUM-001",
+                purchaseType = null,
                 objectInfo = "Test",
                 customers = listOf("1111111111", "2222222222"),
                 maxPrice = null,
@@ -86,5 +89,52 @@ class GosplanFz44SourceTest {
             )
 
         assertThat(dto.toTender("GOSPLAN_44").customerInn).isEqualTo("1111111111")
+    }
+
+    // ── 223-FZ URL mapping ───────────────────────────────────────────────────
+
+    @Test
+    fun `toTender builds correct EIS URL for 223-FZ with purchaseNoticeZKESMBO`() {
+        val dto =
+            GosplanPurchaseDto(
+                purchaseNumber = "32615886135",
+                purchaseType = "purchaseNoticeZKESMBO",
+                objectInfo = "Поставка реагентов",
+                customers = null,
+                maxPrice = null,
+                currencyCode = null,
+                collectingFinishedAt = null,
+                submissionCloseAt = null,
+                publishedAt = null,
+                region = null,
+            )
+
+        val tender = dto.toTender("GOSPLAN_223")
+
+        assertThat(tender.eisUrl).contains("noticeZKESMBO")
+        assertThat(tender.eisUrl).contains("32615886135")
+        assertThat(tender.eisUrl).doesNotContain("223/purchase/public")
+    }
+
+    @Test
+    fun `toTender falls back to notice223 when purchaseType is null for 223-FZ`() {
+        val dto =
+            GosplanPurchaseDto(
+                purchaseNumber = "32615886135",
+                purchaseType = null,
+                objectInfo = "Test",
+                customers = null,
+                maxPrice = null,
+                currencyCode = null,
+                collectingFinishedAt = null,
+                submissionCloseAt = null,
+                publishedAt = null,
+                region = null,
+            )
+
+        val tender = dto.toTender("GOSPLAN_223")
+
+        assertThat(tender.eisUrl).contains("notice223")
+        assertThat(tender.eisUrl).contains("32615886135")
     }
 }

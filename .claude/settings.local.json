@@ -46,7 +46,10 @@
       "Bash(./gradlew dependencies:*)",
       "Bash(find /Users/antontamarov/Desktop/spring-kotlin-starter -name package.json -not -path */node_modules/*)",
       "Skill(spec:implement)",
-      "Bash(./gradlew build:*)"
+      "Bash(./gradlew build:*)",
+      "WebFetch(domain:zakupki.gov.ru)",
+      "WebFetch(domain:v2test.gosplan.info)",
+      "Bash(./gradlew :compileTestKotlin)"
     ]
   }
 }

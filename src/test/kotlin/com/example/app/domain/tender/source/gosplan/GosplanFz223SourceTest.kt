@@ -21,6 +21,7 @@ class GosplanFz223SourceTest {
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "223001002003004005",
+                purchaseType = null,
                 objectInfo = "Закупка оборудования",
                 customers = listOf("5010038450"),
                 maxPrice = BigDecimal("1200000.00"),
@@ -46,6 +47,7 @@ class GosplanFz223SourceTest {
         val dto =
             GosplanPurchaseDto(
                 purchaseNumber = "NUM-001",
+                purchaseType = null,
                 objectInfo = "Test",
                 customers = null,
                 maxPrice = null,

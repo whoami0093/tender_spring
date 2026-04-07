@@ -8,6 +8,7 @@ import java.time.ZoneOffset
 
 data class GosplanPurchaseDto(
     @JsonProperty("purchase_number") val purchaseNumber: String,
+    @JsonProperty("purchase_type") val purchaseType: String?,
     @JsonProperty("object_info") val objectInfo: String?,
     @JsonProperty("customers") val customers: List<String>?,
     @JsonProperty("max_price") val maxPrice: BigDecimal?,
@@ -24,7 +25,11 @@ fun GosplanPurchaseDto.toTender(source: String): Tender {
         if (source == "GOSPLAN_44") {
             "https://zakupki.gov.ru/epz/order/notice/ea44/view/common-info.html?regNumber=$purchaseNumber"
         } else {
-            "https://zakupki.gov.ru/223/purchase/public/purchase/view/info.html?regNumber=$purchaseNumber"
+            val noticePath = purchaseType
+                ?.removePrefix("purchase")
+                ?.replaceFirstChar { it.lowercase() }
+                ?: "notice223"
+            "https://zakupki.gov.ru/epz/order/notice/$noticePath/view/common-info.html?regNumber=$purchaseNumber"
         }
     return Tender(
         purchaseNumber = purchaseNumber,
