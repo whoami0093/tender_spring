@@ -1,0 +1,3180 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "spring-kotlin-starter",
+    "languages": [
+      "kotlin",
+      "typescript",
+      "javascript",
+      "bash"
+    ],
+    "frameworks": [
+      "Spring Boot",
+      "Spring Security",
+      "Redis",
+      "Flyway",
+      "JPA/Hibernate",
+      "React",
+      "Vite"
+    ],
+    "description": "A production-ready REST API starter and tender monitoring system built with Spring Boot 3.4, Kotlin 2.1, PostgreSQL, Redis, and a React/TypeScript frontend with spec-based development workflow.",
+    "analyzedAt": "2026-03-27T05:33:27.917Z",
+    "gitCommitHash": "51f26b7305d089eaea433393bafe11dc0a7a012a"
+  },
+  "nodes": [
+    {
+      "id": "file:frontend/eslint.config.js",
+      "type": "file",
+      "name": "eslint.config.js",
+      "filePath": "frontend/eslint.config.js",
+      "summary": "ESLint flat config for the frontend project, enabling TypeScript, React Hooks, and React Refresh rules for all .ts/.tsx files.",
+      "tags": [
+        "config",
+        "linting",
+        "eslint",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "frontend/src/App.tsx",
+      "summary": "Root React application component that sets up routing (BrowserRouter at /admin), theme provider, React Query client, and toast notifications. Renders the Layout shell with SubscriptionsPage as the main route.",
+      "tags": [
+        "entry-point",
+        "ui",
+        "routing",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/App.tsx:App",
+      "type": "function",
+      "name": "App",
+      "filePath": "frontend/src/App.tsx",
+      "lineRange": [
+        14,
+        30
+      ],
+      "summary": "Default export React component — root app shell composing ThemeProvider, QueryClientProvider, BrowserRouter, and the subscriptions route.",
+      "tags": [
+        "entry-point",
+        "ui",
+        "react",
+        "routing"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/client.ts",
+      "type": "file",
+      "name": "client.ts",
+      "filePath": "frontend/src/api/client.ts",
+      "summary": "Generic fetch wrapper that adds JSON Content-Type header, handles non-2xx responses by throwing an Error with the server message, and transparently handles 204 No Content.",
+      "tags": [
+        "service",
+        "api",
+        "http",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/api/client.ts:apiFetch",
+      "type": "function",
+      "name": "apiFetch",
+      "filePath": "frontend/src/api/client.ts",
+      "lineRange": [
+        1,
+        20
+      ],
+      "summary": "Generic typed fetch utility that wraps the native fetch API with JSON headers, error handling, and 204 support.",
+      "tags": [
+        "service",
+        "api",
+        "http",
+        "utility"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/subscriptions.ts",
+      "type": "file",
+      "name": "subscriptions.ts",
+      "filePath": "frontend/src/api/subscriptions.ts",
+      "summary": "API client module exposing CRUD functions for subscription resources against /api/v1/subscriptions, including status toggle (ACTIVE/PAUSED).",
+      "tags": [
+        "service",
+        "api",
+        "subscriptions"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/api/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "frontend/src/api/types.ts",
+      "summary": "TypeScript interface definitions for the subscription domain: SubscriptionFilters, SubscriptionResponse, SubscriptionRequest, and SubscriptionUpdateRequest.",
+      "tags": [
+        "types",
+        "api",
+        "subscriptions",
+        "interfaces"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/shared/Layout.tsx",
+      "type": "file",
+      "name": "Layout.tsx",
+      "filePath": "frontend/src/components/shared/Layout.tsx",
+      "summary": "Shared page layout shell component rendering the Navbar at the top and a React Router Outlet for nested route content.",
+      "tags": [
+        "ui",
+        "layout",
+        "shared",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/shared/Layout.tsx:Layout",
+      "type": "function",
+      "name": "Layout",
+      "filePath": "frontend/src/components/shared/Layout.tsx",
+      "lineRange": [
+        4,
+        13
+      ],
+      "summary": "Exported React layout component composing Navbar and an Outlet for child routes within a full-height container.",
+      "tags": [
+        "ui",
+        "layout",
+        "shared"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/shared/Navbar.tsx",
+      "type": "file",
+      "name": "Navbar.tsx",
+      "filePath": "frontend/src/components/shared/Navbar.tsx",
+      "summary": "Sticky top navigation bar component displaying the app brand (bell icon + 'Закупки Monitor') and the ThemeToggle on the right.",
+      "tags": [
+        "ui",
+        "navigation",
+        "shared",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/shared/Navbar.tsx:Navbar",
+      "type": "function",
+      "name": "Navbar",
+      "filePath": "frontend/src/components/shared/Navbar.tsx",
+      "lineRange": [
+        4,
+        18
+      ],
+      "summary": "Exported React navbar component with sticky positioning, brand logo, and theme toggle button.",
+      "tags": [
+        "ui",
+        "navigation",
+        "shared"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/shared/ThemeToggle.tsx",
+      "type": "file",
+      "name": "ThemeToggle.tsx",
+      "filePath": "frontend/src/components/shared/ThemeToggle.tsx",
+      "summary": "Light/dark theme toggle button using next-themes hook; switches between dark and light mode with animated Sun/Moon icons.",
+      "tags": [
+        "ui",
+        "theme",
+        "shared",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/components/shared/ThemeToggle.tsx:ThemeToggle",
+      "type": "function",
+      "name": "ThemeToggle",
+      "filePath": "frontend/src/components/shared/ThemeToggle.tsx",
+      "lineRange": [
+        5,
+        19
+      ],
+      "summary": "Exported React component that toggles between dark and light themes using useTheme hook and renders animated Sun/Moon icons.",
+      "tags": [
+        "ui",
+        "theme",
+        "shared"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/ui/alert-dialog.tsx",
+      "type": "file",
+      "name": "alert-dialog.tsx",
+      "filePath": "frontend/src/components/ui/alert-dialog.tsx",
+      "summary": "Radix UI AlertDialog primitive wrapper with Tailwind CSS styling, exporting fully composed sub-components: AlertDialog, Trigger, Content, Header, Footer, Title, Description, Action, and Cancel.",
+      "tags": [
+        "ui",
+        "component",
+        "radix-ui",
+        "dialog"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/ui/badge.tsx",
+      "type": "file",
+      "name": "badge.tsx",
+      "filePath": "frontend/src/components/ui/badge.tsx",
+      "summary": "Shadcn/ui Badge component with CVA variants (default, secondary, destructive, outline, success, warning) and exported BadgeProps interface.",
+      "tags": [
+        "ui",
+        "component",
+        "badge",
+        "cva",
+        "variants"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/ui/button.tsx",
+      "type": "file",
+      "name": "button.tsx",
+      "filePath": "frontend/src/components/ui/button.tsx",
+      "summary": "Shadcn/ui Button component using forwardRef and Radix Slot for asChild support, with CVA variants (default, destructive, outline, secondary, ghost, link) and sizes.",
+      "tags": [
+        "ui",
+        "component",
+        "button",
+        "cva",
+        "radix"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/ui/input.tsx",
+      "type": "file",
+      "name": "input.tsx",
+      "filePath": "frontend/src/components/ui/input.tsx",
+      "summary": "Shadcn/ui Input component wrapping a native HTML input with forwardRef and Tailwind styling.",
+      "tags": [
+        "ui",
+        "component",
+        "input",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/ui/label.tsx",
+      "type": "file",
+      "name": "label.tsx",
+      "filePath": "frontend/src/components/ui/label.tsx",
+      "summary": "Shadcn/ui Label component wrapping Radix LabelPrimitive.Root with CVA styling and forwardRef.",
+      "tags": [
+        "ui",
+        "component",
+        "label",
+        "radix",
+        "form"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/ui/region-select.tsx",
+      "type": "file",
+      "name": "region-select.tsx",
+      "filePath": "frontend/src/components/ui/region-select.tsx",
+      "summary": "Custom multi-select combobox for Russian regions using Radix Popover, with search filtering, selected region chips with removal, and a reset all action.",
+      "tags": [
+        "ui",
+        "component",
+        "region",
+        "multiselect",
+        "popover"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/ui/select.tsx",
+      "type": "file",
+      "name": "select.tsx",
+      "filePath": "frontend/src/components/ui/select.tsx",
+      "summary": "Shadcn/ui Select component suite (Select, SelectGroup, SelectValue, SelectTrigger, SelectContent, SelectItem) built on Radix SelectPrimitive with Tailwind styling.",
+      "tags": [
+        "ui",
+        "component",
+        "select",
+        "radix",
+        "dropdown"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/ui/sheet.tsx",
+      "type": "file",
+      "name": "sheet.tsx",
+      "filePath": "frontend/src/components/ui/sheet.tsx",
+      "summary": "Shadcn/ui Sheet (side drawer) component built on Radix Dialog, providing Sheet, SheetTrigger, SheetClose, SheetContent (slide-in from right), SheetHeader, and SheetTitle.",
+      "tags": [
+        "ui",
+        "component",
+        "sheet",
+        "drawer",
+        "radix"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/src/components/ui/skeleton.tsx",
+      "type": "file",
+      "name": "skeleton.tsx",
+      "filePath": "frontend/src/components/ui/skeleton.tsx",
+      "summary": "Minimal Skeleton loading placeholder component with pulse animation.",
+      "tags": [
+        "ui",
+        "component",
+        "skeleton",
+        "loading"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:frontend/src/components/ui/switch.tsx",
+      "type": "file",
+      "name": "switch.tsx",
+      "filePath": "frontend/src/components/ui/switch.tsx",
+      "summary": "Shadcn/ui Switch toggle component wrapping Radix SwitchPrimitives.Root with forwardRef and Tailwind styling for checked/unchecked states.",
+      "tags": [
+        "ui",
+        "component",
+        "switch",
+        "toggle",
+        "radix"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/components/ui/badge.tsx::Badge",
+      "type": "class",
+      "name": "Badge",
+      "filePath": "frontend/src/components/ui/badge.tsx",
+      "lineRange": [
+        28,
+        30
+      ],
+      "summary": "React component rendering a styled div with variant-based class names using badgeVariants CVA config.",
+      "tags": [
+        "ui",
+        "component",
+        "badge",
+        "react"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/components/ui/button.tsx::Button",
+      "type": "class",
+      "name": "Button",
+      "filePath": "frontend/src/components/ui/button.tsx",
+      "lineRange": [
+        38,
+        46
+      ],
+      "summary": "React forwardRef button component supporting asChild pattern via Radix Slot with variant and size CVA props.",
+      "tags": [
+        "ui",
+        "component",
+        "button",
+        "react",
+        "forwardRef"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/components/ui/region-select.tsx::RegionSelect",
+      "type": "class",
+      "name": "RegionSelect",
+      "filePath": "frontend/src/components/ui/region-select.tsx",
+      "lineRange": [
+        12,
+        128
+      ],
+      "summary": "Stateful multi-region selector with popover dropdown, live search, chip display for selected regions, and toggle/remove/reset interactions.",
+      "tags": [
+        "ui",
+        "component",
+        "region",
+        "multiselect",
+        "stateful"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:frontend/src/components/ui/select.tsx::SelectTrigger",
+      "type": "class",
+      "name": "SelectTrigger",
+      "filePath": "frontend/src/components/ui/select.tsx",
+      "lineRange": [
+        10,
+        28
+      ],
+      "summary": "Styled Radix SelectPrimitive.Trigger with ChevronDown icon appended.",
+      "tags": [
+        "ui",
+        "component",
+        "select",
+        "trigger",
+        "radix"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/components/ui/select.tsx::SelectContent",
+      "type": "class",
+      "name": "SelectContent",
+      "filePath": "frontend/src/components/ui/select.tsx",
+      "lineRange": [
+        30,
+        51
+      ],
+      "summary": "Styled Radix SelectPrimitive.Content rendered in a portal with popper position support.",
+      "tags": [
+        "ui",
+        "component",
+        "select",
+        "content",
+        "radix"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/components/ui/select.tsx::SelectItem",
+      "type": "class",
+      "name": "SelectItem",
+      "filePath": "frontend/src/components/ui/select.tsx",
+      "lineRange": [
+        53,
+        73
+      ],
+      "summary": "Styled Radix SelectPrimitive.Item with checkmark indicator for selected state.",
+      "tags": [
+        "ui",
+        "component",
+        "select",
+        "item",
+        "radix"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:frontend/src/components/ui/sheet.tsx::SheetContent",
+      "type": "class",
+      "name": "SheetContent",
+      "filePath": "frontend/src/components/ui/sheet.tsx",
+      "lineRange": [
+        23,
+        45
+      ],
+      "summary": "Sheet content panel that includes SheetOverlay and slides in from the right side using Radix Dialog.Content with built-in close button.",
+      "tags": [
+        "ui",
+        "component",
+        "sheet",
+        "drawer",
+        "radix"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/components/ui/table.tsx",
+      "type": "file",
+      "name": "table.tsx",
+      "filePath": "frontend/src/components/ui/table.tsx",
+      "summary": "Shadcn/ui Table component library exporting Table, TableHeader, TableBody, TableRow, TableHead, and TableCell as accessible, styled React components built with forwardRef.",
+      "tags": [
+        "react",
+        "ui-component",
+        "table",
+        "shadcn",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/components/ui/tag-input.tsx",
+      "type": "file",
+      "name": "tag-input.tsx",
+      "filePath": "frontend/src/components/ui/tag-input.tsx",
+      "summary": "Interactive tag/chip input component that allows adding and removing string tags via keyboard (Enter/Backspace) or button click.",
+      "tags": [
+        "react",
+        "ui-component",
+        "form-input",
+        "tags",
+        "typescript"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "frontend/src/components/ui/textarea.tsx",
+      "type": "file",
+      "name": "textarea.tsx",
+      "filePath": "frontend/src/components/ui/textarea.tsx",
+      "summary": "Styled Textarea component wrapping the native textarea element with Tailwind classes, built with React.forwardRef.",
+      "tags": [
+        "react",
+        "ui-component",
+        "form-input",
+        "shadcn",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/data/regions.ts",
+      "type": "file",
+      "name": "regions.ts",
+      "filePath": "frontend/src/data/regions.ts",
+      "summary": "Static data file containing the complete list of Russian regions (code + name) as a typed array and a lookup Map by numeric code.",
+      "tags": [
+        "data",
+        "regions",
+        "russia",
+        "static",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/lib/sources.ts",
+      "type": "file",
+      "name": "sources.ts",
+      "filePath": "frontend/src/lib/sources.ts",
+      "summary": "Constants and utilities for tender source identifiers: SOURCE_LABELS map, sourceLabel() lookup function, and SOURCE_OPTIONS array for select dropdowns.",
+      "tags": [
+        "constants",
+        "tender-sources",
+        "utilities",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/lib/utils.ts",
+      "type": "file",
+      "name": "utils.ts",
+      "filePath": "frontend/src/lib/utils.ts",
+      "summary": "Utility module exporting the cn() helper that merges Tailwind CSS class names using clsx and tailwind-merge.",
+      "tags": [
+        "utilities",
+        "tailwind",
+        "classnames",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "frontend/src/main.tsx",
+      "summary": "React application entry point that mounts the root App component inside StrictMode to the DOM element with id 'root'.",
+      "tags": [
+        "entry-point",
+        "react",
+        "bootstrap",
+        "typescript"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx",
+      "type": "file",
+      "name": "SubscriptionDrawer.tsx",
+      "filePath": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx",
+      "summary": "Slide-over drawer component for creating or editing a subscription, wiring React Query mutations for create/update operations and rendering SubscriptionForm inside a Sheet.",
+      "tags": [
+        "react",
+        "subscription",
+        "drawer",
+        "react-query",
+        "typescript"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "type": "file",
+      "name": "SubscriptionForm.tsx",
+      "filePath": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "summary": "Large form component (216 lines) for creating or editing tender subscriptions with Zod validation, react-hook-form, tag inputs for keywords/emails, region selection, and price range filters.",
+      "tags": [
+        "react",
+        "form",
+        "subscription",
+        "zod-validation",
+        "react-hook-form"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "frontend/src/components/ui/tag-input.tsx::TagInput",
+      "type": "function",
+      "name": "TagInput",
+      "summary": "Exported React component for managing a list of string tags with add (Enter key or button) and remove functionality, supporting configurable input type.",
+      "tags": [
+        "react-component",
+        "tag-input",
+        "form",
+        "exported"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        13,
+        83
+      ]
+    },
+    {
+      "id": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx::SubscriptionDrawer",
+      "type": "function",
+      "name": "SubscriptionDrawer",
+      "summary": "Exported React component rendering a Sheet drawer that handles create and update subscription mutations, delegating form rendering to SubscriptionForm.",
+      "tags": [
+        "react-component",
+        "drawer",
+        "mutations",
+        "subscription",
+        "exported"
+      ],
+      "complexity": "moderate",
+      "lineRange": [
+        14,
+        66
+      ]
+    },
+    {
+      "id": "frontend/src/pages/subscriptions/SubscriptionForm.tsx::SubscriptionForm",
+      "type": "function",
+      "name": "SubscriptionForm",
+      "summary": "Exported React form component with Zod schema validation via react-hook-form, managing state for emails, keywords, localKeywords, and regions, with full create/edit support.",
+      "tags": [
+        "react-component",
+        "form",
+        "validation",
+        "subscription",
+        "exported"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        46,
+        216
+      ]
+    },
+    {
+      "id": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "type": "file",
+      "name": "SubscriptionsPage.tsx",
+      "filePath": "frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "summary": "Main subscriptions management page component providing a full CRUD table UI with search, status toggle, create/edit drawer, and delete confirmation dialog.",
+      "tags": [
+        "react",
+        "page",
+        "crud",
+        "subscriptions",
+        "tanstack-query"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:frontend/vite.config.ts",
+      "type": "file",
+      "name": "vite.config.ts",
+      "filePath": "frontend/vite.config.ts",
+      "summary": "Vite build configuration for the React admin frontend: sets base path to /admin/, outputs build artifacts to the Spring Boot static resources directory, and aliases @ to src.",
+      "tags": [
+        "vite",
+        "build",
+        "config",
+        "react",
+        "tailwind"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/approve-context.sh",
+      "type": "file",
+      "name": "approve-context.sh",
+      "filePath": "spec/.scripts/approve-context.sh",
+      "summary": "Shell script that prints the current active spec name and lists its directory contents — used as context injection for the /spec:approve skill command.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "context"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/design-context.sh",
+      "type": "file",
+      "name": "design-context.sh",
+      "filePath": "spec/.scripts/design-context.sh",
+      "summary": "Shell script that reports the current spec, checks whether requirements have been approved, and lists spec directory contents — context for the /spec:design skill command.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "context"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/implement-context.sh",
+      "type": "file",
+      "name": "implement-context.sh",
+      "filePath": "spec/.scripts/implement-context.sh",
+      "summary": "Shell script that reads the tasks.md file for the current spec and outputs phase headings and incomplete task items — context for the /spec:implement skill command.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "tasks"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/requirements-context.sh",
+      "type": "file",
+      "name": "requirements-context.sh",
+      "filePath": "spec/.scripts/requirements-context.sh",
+      "summary": "Shell script that prints the current active spec and its directory listing with an early-exit guard for missing spec — context for the /spec:requirements skill command.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "context"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/review-context.sh",
+      "type": "file",
+      "name": "review-context.sh",
+      "filePath": "spec/.scripts/review-context.sh",
+      "summary": "Shell script that checks approval status of requirements, design, and tasks docs; if all approved it prompts an implementation review, otherwise shows unapproved document checklist.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "review",
+        "approval"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:spec/.scripts/status-context.sh",
+      "type": "file",
+      "name": "status-context.sh",
+      "filePath": "spec/.scripts/status-context.sh",
+      "summary": "Shell script that iterates all spec directories and reports task completion counts and approval marker files — provides a project-wide spec status overview.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "status"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/tasks-approved-context.sh",
+      "type": "file",
+      "name": "tasks-approved-context.sh",
+      "filePath": "spec/.scripts/tasks-approved-context.sh",
+      "summary": "Shell script that checks task approval status and validates the current git branch against the expected feature branch name — context for post-task-approval implementation start.",
+      "tags": [
+        "bash",
+        "spec",
+        "workflow",
+        "git",
+        "branch"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:frontend/src/pages/subscriptions/SubscriptionsPage.tsx::SubscriptionsPage",
+      "type": "function",
+      "name": "SubscriptionsPage",
+      "summary": "Exported React page component that manages the full subscription list view: fetches data via React Query, handles delete and status-toggle mutations, filters by search, and renders a table with edit/delete actions plus a slide-in drawer for create/edit.",
+      "tags": [
+        "react-component",
+        "page",
+        "subscriptions",
+        "react-query",
+        "export"
+      ],
+      "complexity": "complex",
+      "lineRange": [
+        27,
+        204
+      ]
+    },
+    {
+      "id": "file:spec/.scripts/tasks-context.sh",
+      "type": "file",
+      "name": "tasks-context.sh",
+      "filePath": "spec/.scripts/tasks-context.sh",
+      "summary": "Shell script that reads the current spec name and checks whether the design has been approved by inspecting the .design-approved marker file.",
+      "tags": [
+        "shell",
+        "spec",
+        "context",
+        "workflow",
+        "script"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:spec/.scripts/update-task-context.sh",
+      "type": "file",
+      "name": "update-task-context.sh",
+      "filePath": "spec/.scripts/update-task-context.sh",
+      "summary": "Shell script that lists task checklist items from the current spec's tasks.md file for use in spec-based workflow context.",
+      "tags": [
+        "shell",
+        "spec",
+        "tasks",
+        "workflow",
+        "script"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/Application.kt",
+      "type": "file",
+      "name": "Application.kt",
+      "filePath": "src/main/kotlin/com/example/app/Application.kt",
+      "summary": "Spring Boot application entry point. Declares the main Application class annotated with @SpringBootApplication, enables scheduling and EmailConfig configuration properties.",
+      "tags": [
+        "entrypoint",
+        "spring-boot",
+        "kotlin",
+        "application",
+        "scheduling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:com.example.app.Application",
+      "type": "class",
+      "name": "Application",
+      "filePath": "src/main/kotlin/com/example/app/Application.kt",
+      "lineRange": [
+        12,
+        12
+      ],
+      "summary": "Spring Boot application class annotated with @SpringBootApplication, @EnableScheduling, and @EnableConfigurationProperties(EmailConfig::class). Acts as the root Spring context.",
+      "tags": [
+        "spring-boot",
+        "application",
+        "entrypoint",
+        "scheduling",
+        "configuration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/common/email/EmailConfig.kt",
+      "type": "file",
+      "name": "EmailConfig.kt",
+      "filePath": "src/main/kotlin/com/example/app/common/email/EmailConfig.kt",
+      "summary": "Configuration properties data class for email settings, bound to the 'app.email' prefix.",
+      "tags": [
+        "configuration",
+        "email",
+        "properties",
+        "kotlin",
+        "spring"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/common/email/EmailMessage.kt",
+      "type": "file",
+      "name": "EmailMessage.kt",
+      "filePath": "src/main/kotlin/com/example/app/common/email/EmailMessage.kt",
+      "summary": "Data class representing an email message with recipient list, subject, body, and optional HTML flag.",
+      "tags": [
+        "email",
+        "dto",
+        "data-class",
+        "kotlin",
+        "messaging"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "type": "file",
+      "name": "EmailService.kt",
+      "filePath": "src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "summary": "Spring @Service that sends emails via JavaMailSender. Handles MailException and MessagingException by wrapping them in EmailSendException.",
+      "tags": [
+        "email",
+        "service",
+        "spring",
+        "kotlin",
+        "javamail"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:com.example.app.common.email.EmailService",
+      "type": "class",
+      "name": "EmailService",
+      "filePath": "src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "lineRange": [
+        12,
+        36
+      ],
+      "summary": "Spring service that builds MIME email messages using MimeMessageHelper and sends them via JavaMailSender. Catches mail and messaging exceptions and rethrows as EmailSendException.",
+      "tags": [
+        "service",
+        "email",
+        "spring",
+        "javamail",
+        "exception-handling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "type": "file",
+      "name": "AppException.kt",
+      "filePath": "src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "summary": "Sealed class hierarchy for application exceptions. Defines AppException base and four subclasses: NotFoundException, ConflictException, BadRequestException, EmailSendException — each mapped to an HTTP status.",
+      "tags": [
+        "exception",
+        "sealed-class",
+        "http-status",
+        "kotlin",
+        "error-handling"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:com.example.app.common.exception.AppException",
+      "type": "class",
+      "name": "AppException (sealed hierarchy)",
+      "filePath": "src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "lineRange": [
+        5,
+        29
+      ],
+      "summary": "Sealed exception hierarchy with AppException as the root extending RuntimeException. Subclasses: NotFoundException (404), ConflictException (409), BadRequestException (400), EmailSendException (500). Each carries an HTTP status and a string error code.",
+      "tags": [
+        "sealed-class",
+        "exception",
+        "http-status",
+        "kotlin",
+        "error-codes"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+      "type": "file",
+      "name": "GlobalExceptionHandler.kt",
+      "filePath": "src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+      "summary": "Spring @RestControllerAdvice that centralises error handling. Maps AppException, validation errors, and unexpected exceptions to structured ErrorResponse JSON bodies.",
+      "tags": [
+        "exception-handler",
+        "spring",
+        "rest",
+        "middleware",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:com.example.app.common.exception.GlobalExceptionHandler",
+      "type": "class",
+      "name": "GlobalExceptionHandler",
+      "filePath": "src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+      "lineRange": [
+        18,
+        46
+      ],
+      "summary": "@RestControllerAdvice with three @ExceptionHandler methods: handleAppException (AppException → HTTP status from exception), handleValidation (MethodArgumentNotValidException → 422), handleUnexpected (Exception → 500).",
+      "tags": [
+        "rest-controller-advice",
+        "exception-handler",
+        "middleware",
+        "spring",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/config/AccessLogFilter.kt",
+      "type": "file",
+      "name": "AccessLogFilter.kt",
+      "filePath": "src/main/kotlin/com/example/app/config/AccessLogFilter.kt",
+      "summary": "Servlet filter extending OncePerRequestFilter that logs HTTP method, URI, status code, duration, and response size for every request, masking sensitive query parameters.",
+      "tags": [
+        "filter",
+        "logging",
+        "middleware",
+        "spring",
+        "security"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:com.example.app.config.AccessLogFilter",
+      "type": "class",
+      "name": "AccessLogFilter",
+      "filePath": "src/main/kotlin/com/example/app/config/AccessLogFilter.kt",
+      "lineRange": [
+        12,
+        54
+      ],
+      "summary": "Spring @Component OncePerRequestFilter that records access logs including method, URI, HTTP status, duration in ms, and response size. Skips /actuator endpoints. Masks sensitive query parameters (password, token, authorization, secret, key).",
+      "tags": [
+        "filter",
+        "access-log",
+        "middleware",
+        "security",
+        "spring"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/config/RedisConfig.kt",
+      "type": "file",
+      "name": "RedisConfig.kt",
+      "filePath": "src/main/kotlin/com/example/app/config/RedisConfig.kt",
+      "summary": "Spring @Configuration class that enables caching and defines RedisTemplate and RedisCacheManager beans with JSON serialization and a 10-minute default TTL.",
+      "tags": [
+        "config",
+        "redis",
+        "caching",
+        "spring",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/config/RedisConfig.kt:RedisConfig",
+      "type": "class",
+      "name": "RedisConfig",
+      "filePath": "src/main/kotlin/com/example/app/config/RedisConfig.kt",
+      "lineRange": [
+        17,
+        45
+      ],
+      "summary": "Spring configuration class enabling caching with Redis. Declares redisTemplate bean (String keys, JSON values) and cacheManager bean (10-min TTL, null-value caching disabled).",
+      "tags": [
+        "config",
+        "redis",
+        "caching",
+        "spring"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/config/SecurityConfig.kt",
+      "type": "file",
+      "name": "SecurityConfig.kt",
+      "filePath": "src/main/kotlin/com/example/app/config/SecurityConfig.kt",
+      "summary": "Spring Security configuration enabling HTTP Basic authentication, stateless sessions, CSRF disabled, and permitting actuator health/prometheus endpoints publicly.",
+      "tags": [
+        "config",
+        "security",
+        "spring",
+        "http-basic"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/config/SecurityConfig.kt:SecurityConfig",
+      "type": "class",
+      "name": "SecurityConfig",
+      "filePath": "src/main/kotlin/com/example/app/config/SecurityConfig.kt",
+      "lineRange": [
+        12,
+        29
+      ],
+      "summary": "Spring Security filter chain configuration: permits /actuator/health and /actuator/prometheus without auth, requires auth for all other requests, uses HTTP Basic with stateless sessions and CSRF disabled.",
+      "tags": [
+        "config",
+        "security",
+        "filter-chain",
+        "spring"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/config/SpaController.kt",
+      "type": "file",
+      "name": "SpaController.kt",
+      "filePath": "src/main/kotlin/com/example/app/config/SpaController.kt",
+      "summary": "Spring MVC @Controller that forwards all /admin and /admin/{path} requests to the React SPA index.html to support client-side routing.",
+      "tags": [
+        "config",
+        "controller",
+        "spa",
+        "frontend"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+      "type": "file",
+      "name": "MonitorScheduler.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+      "summary": "Spring @Scheduled component that triggers MonitorService.runCycle() at a configurable fixed delay (default 30 minutes) to poll tender sources.",
+      "tags": [
+        "scheduler",
+        "monitoring",
+        "spring",
+        "tender"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt:MonitorScheduler",
+      "type": "class",
+      "name": "MonitorScheduler",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+      "lineRange": [
+        8,
+        18
+      ],
+      "summary": "Scheduled Spring component that fires MonitorService.runCycle() at a configurable interval (property: zakupki.monitor.interval-minutes, default 30m).",
+      "tags": [
+        "scheduler",
+        "component",
+        "monitoring",
+        "spring"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "type": "file",
+      "name": "MonitorService.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "summary": "Spring @Service that orchestrates a monitoring cycle: fetches all active subscriptions and delegates each to SubscriptionProcessor with a configurable delay between calls.",
+      "tags": [
+        "service",
+        "monitoring",
+        "tender",
+        "orchestration"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt:MonitorService",
+      "type": "class",
+      "name": "MonitorService",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "lineRange": [
+        10,
+        26
+      ],
+      "summary": "Orchestrates a full monitoring cycle over all ACTIVE subscriptions, calling SubscriptionProcessor.process() for each with a configurable inter-subscription sleep delay.",
+      "tags": [
+        "service",
+        "monitoring",
+        "orchestration",
+        "spring"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "type": "file",
+      "name": "SeenTender.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "summary": "JPA @Entity mapping the seen_tenders table. Tracks tenders already notified for a subscription, storing purchase number, metadata, and discovery timestamp. Includes a factory method SeenTender.from().",
+      "tags": [
+        "entity",
+        "jpa",
+        "monitoring",
+        "tender"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt:SeenTender",
+      "type": "class",
+      "name": "SeenTender",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "lineRange": [
+        19,
+        61
+      ],
+      "summary": "JPA entity persisting details of a tender already processed for a subscription, including purchase number, customer INN, max price, currency, deadline, and EIS URL. Factory method from() maps a Tender value object.",
+      "tags": [
+        "entity",
+        "jpa",
+        "seen-tender",
+        "deduplication"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTenderRepository.kt",
+      "type": "file",
+      "name": "SeenTenderRepository.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/SeenTenderRepository.kt",
+      "summary": "Spring Data JPA repository for SeenTender providing a custom JPQL query to efficiently look up which purchase numbers have already been seen for a given subscription.",
+      "tags": [
+        "repository",
+        "jpa",
+        "monitoring",
+        "tender"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "type": "file",
+      "name": "SubscriptionProcessor.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "summary": "Core Spring @Service that processes a single subscription: fetches new tenders from the source, deduplicates against seen records, persists newly found tenders, sends email notification, and records Micrometer metrics for found/empty/error cycles.",
+      "tags": [
+        "service",
+        "monitoring",
+        "email",
+        "metrics",
+        "tender"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt:SubscriptionProcessor",
+      "type": "class",
+      "name": "SubscriptionProcessor",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "lineRange": [
+        18,
+        144
+      ],
+      "summary": "Processes a single subscription in an isolated REQUIRES_NEW transaction: baseline handling on first run, fetches tenders via TenderSourceRegistry, deduplicates with SeenTenderRepository, saves new SeenTender records, sends email via EmailService/TenderEmailComposer, and records monitor.tenders.found/emails.sent/cycles/api.errors Micrometer counters plus cycle duration timer.",
+      "tags": [
+        "service",
+        "processor",
+        "metrics",
+        "email",
+        "deduplication"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "type": "file",
+      "name": "TenderEmailComposer.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "summary": "Spring @Component that builds an HTML EmailMessage from a Subscription and list of new Tenders, formatting prices in Russian locale and dates in Moscow timezone.",
+      "tags": [
+        "email",
+        "composer",
+        "html",
+        "tender",
+        "notification"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt:TenderEmailComposer",
+      "type": "class",
+      "name": "TenderEmailComposer",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "lineRange": [
+        15,
+        70
+      ],
+      "summary": "Composes HTML email notifications for new tenders. Formats purchase object info, customer INN, price (Russian number format), deadline (Moscow timezone, Russian locale), and EIS link per tender in an ordered list.",
+      "tags": [
+        "email",
+        "composer",
+        "html",
+        "formatting",
+        "localization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+      "type": "file",
+      "name": "Tender.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+      "summary": "Domain data class representing a single tender item fetched from an external procurement source. Contains purchase number, object info, customer INN, price, currency, deadline, published timestamp, EIS URL, and source key.",
+      "tags": [
+        "domain-model",
+        "data-class",
+        "tender",
+        "procurement",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:Tender",
+      "type": "class",
+      "name": "Tender",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+      "lineRange": [
+        6,
+        16
+      ],
+      "summary": "Immutable data class representing a procurement tender with all key fields: purchaseNumber, objectInfo, customerInn, maxPrice, currency, deadline, publishedAt, eisUrl, source.",
+      "tags": [
+        "data-class",
+        "tender",
+        "domain-model",
+        "immutable",
+        "procurement"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt",
+      "type": "file",
+      "name": "TenderFilters.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt",
+      "summary": "Data class holding filter criteria for tender queries: regions, API-level keywords, local (post-fetch) keywords, customerInn, and price range. Includes matchesTender() for local keyword filtering.",
+      "tags": [
+        "filter",
+        "data-class",
+        "tender",
+        "criteria",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:TenderFilters",
+      "type": "class",
+      "name": "TenderFilters",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt",
+      "lineRange": [
+        5,
+        23
+      ],
+      "summary": "Filter criteria data class with regions, keywords, localKeywords, customerInn, and price bounds. Provides matchesTender() method for case-insensitive substring matching of localKeywords against tender objectInfo.",
+      "tags": [
+        "filter",
+        "data-class",
+        "local-keyword",
+        "tender",
+        "criteria"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSource.kt",
+      "type": "file",
+      "name": "TenderSource.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/TenderSource.kt",
+      "summary": "Interface defining the contract for all tender data sources. Declares sourceKey property and fetch() method that returns a list of Tender objects given filters and a publishedAfter timestamp.",
+      "tags": [
+        "interface",
+        "tender-source",
+        "contract",
+        "strategy-pattern",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:TenderSource",
+      "type": "class",
+      "name": "TenderSource",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/TenderSource.kt",
+      "lineRange": [
+        5,
+        12
+      ],
+      "summary": "Interface with sourceKey property and fetch(filters, publishedAfter) method. All procurement data sources must implement this contract.",
+      "tags": [
+        "interface",
+        "contract",
+        "strategy-pattern",
+        "tender-source",
+        "exported"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+      "type": "file",
+      "name": "TenderSourceRegistry.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+      "summary": "Spring @Component that acts as a registry for all TenderSource implementations. Provides get(key) and keys() methods to look up sources by their sourceKey.",
+      "tags": [
+        "registry",
+        "spring-component",
+        "tender-source",
+        "dependency-injection",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:TenderSourceRegistry",
+      "type": "class",
+      "name": "TenderSourceRegistry",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+      "lineRange": [
+        7,
+        15
+      ],
+      "summary": "Spring @Component injected with all TenderSource beans. Maps them by sourceKey and exposes get(key) (throws NotFoundException if unknown) and keys() methods.",
+      "tags": [
+        "registry",
+        "spring-component",
+        "tender-source",
+        "lookup",
+        "bean"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanClientConfig.kt",
+      "type": "file",
+      "name": "GosplanClientConfig.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanClientConfig.kt",
+      "summary": "Spring @Configuration that creates the gosplanRestClient RestClient bean. Configures JDK HttpClient with connect and read timeouts, base URL, User-Agent header, and optional API key header from GosplanProperties.",
+      "tags": [
+        "spring-config",
+        "rest-client",
+        "http-client",
+        "bean",
+        "gosplan"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:GosplanClientConfig",
+      "type": "class",
+      "name": "GosplanClientConfig",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanClientConfig.kt",
+      "lineRange": [
+        13,
+        38
+      ],
+      "summary": "@Configuration class enabling GosplanProperties and providing a gosplanRestClient bean built with JdkClientHttpRequestFactory, configurable timeouts, base URL, User-Agent, and optional X-Api-Key header.",
+      "tags": [
+        "spring-config",
+        "rest-client",
+        "configuration",
+        "gosplan",
+        "http"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223Source.kt",
+      "type": "file",
+      "name": "GosplanFz223Source.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223Source.kt",
+      "summary": "Spring @Component implementing TenderSource for FZ-223 procurements via the Gosplan API. Fetches purchases at /fz223/purchases per keyword and applies local keyword filtering.",
+      "tags": [
+        "tender-source",
+        "fz223",
+        "gosplan",
+        "spring-component",
+        "procurement"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:GosplanFz223Source",
+      "type": "class",
+      "name": "GosplanFz223Source",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223Source.kt",
+      "lineRange": [
+        12,
+        54
+      ],
+      "summary": "TenderSource implementation for Gosplan FZ-223. sourceKey = 'GOSPLAN_223'. fetch() iterates over keywords (or null), calls fetchPage() per keyword, deduplicates by purchaseNumber, and applies matchesTender() local filter.",
+      "tags": [
+        "fz223",
+        "tender-source",
+        "gosplan",
+        "rest-client",
+        "implements"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+      "type": "file",
+      "name": "GosplanFz44Source.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+      "summary": "Spring @Component implementing TenderSource for FZ-44 procurements via the Gosplan API. Fetches purchases at /fz44/purchases per keyword and applies local keyword filtering.",
+      "tags": [
+        "tender-source",
+        "fz44",
+        "gosplan",
+        "spring-component",
+        "procurement"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:GosplanFz44Source",
+      "type": "class",
+      "name": "GosplanFz44Source",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+      "lineRange": [
+        12,
+        54
+      ],
+      "summary": "TenderSource implementation for Gosplan FZ-44. sourceKey = 'GOSPLAN_44'. fetch() iterates over keywords (or null), calls fetchPage() per keyword, deduplicates by purchaseNumber, and applies matchesTender() local filter.",
+      "tags": [
+        "fz44",
+        "tender-source",
+        "gosplan",
+        "rest-client",
+        "implements"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanProperties.kt",
+      "type": "file",
+      "name": "GosplanProperties.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanProperties.kt",
+      "summary": "@ConfigurationProperties data class bound to 'zakupki.gosplan'. Holds baseUrl (default gosplan test URL), optional apiKey, and timeoutSeconds (default 15).",
+      "tags": [
+        "configuration-properties",
+        "data-class",
+        "gosplan",
+        "spring-config",
+        "kotlin"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:GosplanProperties",
+      "type": "class",
+      "name": "GosplanProperties",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanProperties.kt",
+      "lineRange": [
+        6,
+        10
+      ],
+      "summary": "Type-safe configuration properties for Gosplan API: baseUrl, apiKey (nullable), timeoutSeconds. Bound via @ConfigurationProperties('zakupki.gosplan').",
+      "tags": [
+        "configuration-properties",
+        "gosplan",
+        "data-class",
+        "api-config",
+        "spring"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanPurchaseDto.kt",
+      "type": "file",
+      "name": "GosplanPurchaseDto.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanPurchaseDto.kt",
+      "summary": "Data class representing the Gosplan API purchase JSON response, plus a toTender() extension function that maps it to the domain Tender model with source-specific EIS URL construction.",
+      "tags": [
+        "dto",
+        "gosplan",
+        "api-response",
+        "jackson",
+        "mapping"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:GosplanPurchaseDto",
+      "type": "class",
+      "name": "GosplanPurchaseDto",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanPurchaseDto.kt",
+      "lineRange": [
+        9,
+        19
+      ],
+      "summary": "Jackson-annotated data class mapping Gosplan API JSON fields: purchase_number, object_info, customers, max_price, currency_code, collecting_finished_at, submission_close_at, published_at, region.",
+      "tags": [
+        "dto",
+        "jackson",
+        "gosplan",
+        "api-response",
+        "data-class"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "type": "file",
+      "name": "Subscription.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "summary": "JPA entity representing a tender monitoring subscription, storing filter criteria (regions, keywords, price range) and a list of notification email addresses.",
+      "tags": [
+        "data-model",
+        "entity",
+        "domain",
+        "subscription"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt:Subscription",
+      "type": "class",
+      "name": "Subscription",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "lineRange": [
+        17,
+        49
+      ],
+      "summary": "JPA entity with fields for source, label, emails, status, filter parameters, and timestamps. Extension functions convert it to TenderFilters and parse email lists.",
+      "tags": [
+        "data-model",
+        "entity",
+        "jpa"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "type": "file",
+      "name": "SubscriptionController.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "summary": "REST controller exposing CRUD endpoints for tender subscriptions at /api/v1/subscriptions, delegating all logic to SubscriptionService.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "rest"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt:SubscriptionController",
+      "type": "class",
+      "name": "SubscriptionController",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "lineRange": [
+        16,
+        52
+      ],
+      "summary": "Spring @RestController with GET, POST, PUT, PATCH, DELETE endpoints for subscription management.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "rest"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses constructor injection for SubscriptionService — the canonical Spring pattern for testability."
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt",
+      "type": "file",
+      "name": "SubscriptionDtos.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt",
+      "summary": "Request/Response DTO data classes for subscription CRUD operations, plus extension functions to map between entity and DTO representations.",
+      "tags": [
+        "type-definition",
+        "serialization",
+        "dto"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+      "type": "file",
+      "name": "SubscriptionRepository.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+      "summary": "Spring Data JPA repository interface for Subscription entities, extending JpaRepository for standard CRUD operations.",
+      "tags": [
+        "data-model",
+        "repository",
+        "jpa"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "type": "file",
+      "name": "SubscriptionService.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "summary": "Spring @Service implementing subscription CRUD business logic with @Transactional boundaries, validating source existence via TenderSourceRegistry.",
+      "tags": [
+        "service",
+        "business-logic",
+        "transactional"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt:SubscriptionService",
+      "type": "class",
+      "name": "SubscriptionService",
+      "filePath": "src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "lineRange": [
+        12,
+        76
+      ],
+      "summary": "Business logic for subscription lifecycle: findAll, findById, create (with source validation), update, updateStatus, and delete operations.",
+      "tags": [
+        "service",
+        "business-logic",
+        "transactional"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/user/User.kt",
+      "type": "file",
+      "name": "User.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/User.kt",
+      "summary": "JPA entity representing an application user with email, name, status, and timestamps stored in the users table.",
+      "tags": [
+        "data-model",
+        "entity",
+        "domain"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/user/User.kt:User",
+      "type": "class",
+      "name": "User",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/User.kt",
+      "lineRange": [
+        13,
+        29
+      ],
+      "summary": "JPA @Entity mapped to the users table with id, email (unique), name, status enum, createdAt, and updatedAt fields.",
+      "tags": [
+        "data-model",
+        "entity",
+        "jpa"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "type": "file",
+      "name": "UserController.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "summary": "REST controller exposing CRUD endpoints for users at /api/v1/users, delegating operations to UserService.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "rest"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/user/UserController.kt:UserController",
+      "type": "class",
+      "name": "UserController",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "lineRange": [
+        14,
+        45
+      ],
+      "summary": "Spring @RestController with GET (list + by id), POST, PUT, DELETE endpoints for user management.",
+      "tags": [
+        "api-handler",
+        "controller",
+        "rest"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/user/UserDtos.kt",
+      "type": "file",
+      "name": "UserDtos.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/UserDtos.kt",
+      "summary": "Request/Response DTO data classes for user CRUD operations with Bean Validation annotations, plus User.toResponse() extension function.",
+      "tags": [
+        "type-definition",
+        "serialization",
+        "dto"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/user/UserRepository.kt",
+      "type": "file",
+      "name": "UserRepository.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/UserRepository.kt",
+      "summary": "Spring Data JPA repository for User entities, adding findByEmail and existsByEmail custom query methods.",
+      "tags": [
+        "data-model",
+        "repository",
+        "jpa"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "type": "file",
+      "name": "UserService.kt",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "summary": "Spring @Service implementing user CRUD business logic with Redis caching via @Cacheable/@CacheEvict on findById, update, and delete operations.",
+      "tags": [
+        "service",
+        "business-logic",
+        "caching"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/main/kotlin/com/example/app/domain/user/UserService.kt:UserService",
+      "type": "class",
+      "name": "UserService",
+      "filePath": "src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "lineRange": [
+        13,
+        61
+      ],
+      "summary": "Provides findAll, findById (cached), create (with duplicate email check), update (cache-evicting), and delete (cache-evicting) operations.",
+      "tags": [
+        "service",
+        "business-logic",
+        "caching"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses @Cacheable/@CacheEvict — Spring AOP injects caching cross-cutting behavior at the join points."
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/common/email/EmailServiceTest.kt",
+      "type": "file",
+      "name": "EmailServiceTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/common/email/EmailServiceTest.kt",
+      "summary": "JUnit 5 + MockK unit tests verifying that EmailService correctly composes and sends JavaMailMessage objects via JavaMailSender.",
+      "tags": [
+        "test",
+        "unit-test",
+        "email"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/config/AccessLogFilterTest.kt",
+      "type": "file",
+      "name": "AccessLogFilterTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/config/AccessLogFilterTest.kt",
+      "summary": "JUnit 5 + MockK unit tests verifying that AccessLogFilter correctly logs request method, path, status, and duration for HTTP requests.",
+      "tags": [
+        "test",
+        "unit-test",
+        "middleware"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/monitor/MonitorServiceTest.kt",
+      "type": "file",
+      "name": "MonitorServiceTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/monitor/MonitorServiceTest.kt",
+      "summary": "Comprehensive JUnit 5 + MockK tests for MonitorService, covering active subscription processing, skipping paused subscriptions, and error handling per subscription.",
+      "tags": [
+        "test",
+        "unit-test",
+        "monitor"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposerTest.kt",
+      "type": "file",
+      "name": "TenderEmailComposerTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposerTest.kt",
+      "summary": "JUnit 5 + MockK tests for TenderEmailComposer, verifying correct HTML email structure, subject formatting, and tender list rendering.",
+      "tags": [
+        "test",
+        "unit-test",
+        "email"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/source/TenderLocalKeywordFilterSpec.kt",
+      "type": "file",
+      "name": "TenderLocalKeywordFilterSpec.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/source/TenderLocalKeywordFilterSpec.kt",
+      "summary": "Comprehensive spec-style tests (283 lines) covering all edge cases of local keyword filtering logic: case sensitivity, partial matches, empty keywords, multiple keywords, and combinations.",
+      "tags": [
+        "test",
+        "unit-test",
+        "filter"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/source/TenderSourceRegistryTest.kt",
+      "type": "file",
+      "name": "TenderSourceRegistryTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/source/TenderSourceRegistryTest.kt",
+      "summary": "JUnit 5 tests verifying TenderSourceRegistry correctly returns available sources and throws on unknown source requests.",
+      "tags": [
+        "test",
+        "unit-test",
+        "registry"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223SourceTest.kt",
+      "type": "file",
+      "name": "GosplanFz223SourceTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223SourceTest.kt",
+      "summary": "JUnit 5 + MockK tests for GosplanFz223Source, verifying HTTP request formation, response parsing, and filter application for FZ-223 tenders.",
+      "tags": [
+        "test",
+        "unit-test",
+        "gosplan"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceIntegrationTest.kt",
+      "type": "file",
+      "name": "GosplanFz44SourceIntegrationTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceIntegrationTest.kt",
+      "summary": "Integration test for GosplanFz44Source using a live or stubbed HTTP server to verify full end-to-end tender retrieval from the Gosplan API.",
+      "tags": [
+        "test",
+        "integration-test",
+        "gosplan"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceTest.kt",
+      "type": "file",
+      "name": "GosplanFz44SourceTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceTest.kt",
+      "summary": "JUnit 5 + MockK unit tests for GosplanFz44Source verifying HTTP request construction, response deserialization, and tender filter application for FZ-44 procurements.",
+      "tags": [
+        "test",
+        "unit-test",
+        "gosplan"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionControllerTest.kt",
+      "type": "file",
+      "name": "SubscriptionControllerTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionControllerTest.kt",
+      "summary": "Spring @WebMvcTest slice tests for SubscriptionController, covering all CRUD endpoints with MockK-based service stubs and Spring Security mock user.",
+      "tags": [
+        "test",
+        "controller-test",
+        "web-mvc-test"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionServiceTest.kt",
+      "type": "file",
+      "name": "SubscriptionServiceTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionServiceTest.kt",
+      "summary": "Comprehensive JUnit 5 + MockK unit tests for SubscriptionService covering CRUD operations, source validation, and not-found exception scenarios.",
+      "tags": [
+        "test",
+        "unit-test",
+        "service"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/user/UserControllerTest.kt",
+      "type": "file",
+      "name": "UserControllerTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/user/UserControllerTest.kt",
+      "summary": "Spring @WebMvcTest slice tests for UserController covering all REST endpoints, validation, and 404/conflict error responses with MockK stubs.",
+      "tags": [
+        "test",
+        "controller-test",
+        "web-mvc-test"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/test/kotlin/com/example/app/domain/user/UserServiceTest.kt",
+      "type": "file",
+      "name": "UserServiceTest.kt",
+      "filePath": "src/test/kotlin/com/example/app/domain/user/UserServiceTest.kt",
+      "summary": "JUnit 5 + MockK unit tests for UserService covering create, findById (with cache), update, and delete with conflict and not-found scenarios.",
+      "tags": [
+        "test",
+        "unit-test",
+        "service"
+      ],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/components/shared/Layout.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/App.tsx",
+      "target": "function:frontend/src/App.tsx:App",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:apiFetch",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/api/client.ts",
+      "target": "function:frontend/src/api/client.ts:apiFetch",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/api/subscriptions.ts",
+      "target": "file:frontend/src/api/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/subscriptions.ts",
+      "target": "file:frontend/src/api/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/api/subscriptions.ts",
+      "target": "function:frontend/src/api/client.ts:apiFetch",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:frontend/src/components/shared/Layout.tsx",
+      "target": "file:frontend/src/components/shared/Navbar.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/shared/Layout.tsx",
+      "target": "function:frontend/src/components/shared/Layout.tsx:Layout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/shared/Layout.tsx",
+      "target": "function:frontend/src/components/shared/Layout.tsx:Layout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/shared/Navbar.tsx",
+      "target": "file:frontend/src/components/shared/ThemeToggle.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/shared/Navbar.tsx",
+      "target": "function:frontend/src/components/shared/Navbar.tsx:Navbar",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/shared/Navbar.tsx",
+      "target": "function:frontend/src/components/shared/Navbar.tsx:Navbar",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/shared/ThemeToggle.tsx",
+      "target": "file:frontend/src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/shared/ThemeToggle.tsx",
+      "target": "function:frontend/src/components/shared/ThemeToggle.tsx:ThemeToggle",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:frontend/src/components/shared/ThemeToggle.tsx",
+      "target": "function:frontend/src/components/shared/ThemeToggle.tsx:ThemeToggle",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:frontend/src/components/ui/alert-dialog.tsx",
+      "target": "file:frontend/src/components/ui/button.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:frontend/src/components/ui/badge.tsx",
+      "target": "class:frontend/src/components/ui/badge.tsx::Badge",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/badge.tsx",
+      "target": "class:frontend/src/components/ui/badge.tsx::Badge",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/button.tsx",
+      "target": "class:frontend/src/components/ui/button.tsx::Button",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/button.tsx",
+      "target": "class:frontend/src/components/ui/button.tsx::Button",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/region-select.tsx",
+      "target": "class:frontend/src/components/ui/region-select.tsx::RegionSelect",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/region-select.tsx",
+      "target": "class:frontend/src/components/ui/region-select.tsx::RegionSelect",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/select.tsx",
+      "target": "class:frontend/src/components/ui/select.tsx::SelectTrigger",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/select.tsx",
+      "target": "class:frontend/src/components/ui/select.tsx::SelectContent",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/select.tsx",
+      "target": "class:frontend/src/components/ui/select.tsx::SelectItem",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/select.tsx",
+      "target": "class:frontend/src/components/ui/select.tsx::SelectTrigger",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/select.tsx",
+      "target": "class:frontend/src/components/ui/select.tsx::SelectContent",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/select.tsx",
+      "target": "class:frontend/src/components/ui/select.tsx::SelectItem",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/sheet.tsx",
+      "target": "class:frontend/src/components/ui/sheet.tsx::SheetContent",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/components/ui/sheet.tsx",
+      "target": "class:frontend/src/components/ui/sheet.tsx::SheetContent",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/components/ui/table.tsx",
+      "target": "frontend/src/lib/utils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/components/ui/tag-input.tsx",
+      "target": "frontend/src/lib/utils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/components/ui/textarea.tsx",
+      "target": "frontend/src/lib/utils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx",
+      "target": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "target": "frontend/src/components/ui/tag-input.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "target": "frontend/src/lib/sources.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/components/ui/tag-input.tsx",
+      "target": "frontend/src/components/ui/tag-input.tsx::TagInput",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx",
+      "target": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx::SubscriptionDrawer",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "target": "frontend/src/pages/subscriptions/SubscriptionForm.tsx::SubscriptionForm",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/components/ui/tag-input.tsx",
+      "target": "frontend/src/components/ui/tag-input.tsx::TagInput",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx",
+      "target": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx::SubscriptionDrawer",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionForm.tsx",
+      "target": "frontend/src/pages/subscriptions/SubscriptionForm.tsx::SubscriptionForm",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx::SubscriptionDrawer",
+      "target": "frontend/src/pages/subscriptions/SubscriptionForm.tsx::SubscriptionForm",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "frontend/src/pages/subscriptions/SubscriptionForm.tsx::SubscriptionForm",
+      "target": "frontend/src/components/ui/tag-input.tsx::TagInput",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "function:frontend/src/pages/subscriptions/SubscriptionsPage.tsx::SubscriptionsPage",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/api/subscriptions.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/api/types.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/components/ui/button.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/components/ui/input.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/components/ui/badge.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/components/ui/switch.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/components/ui/skeleton.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "file:frontend/src/components/ui/alert-dialog.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+      "target": "function:frontend/src/pages/subscriptions/SubscriptionsPage.tsx::SubscriptionsPage",
+      "type": "exports",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/Application.kt",
+      "target": "class:com.example.app.Application",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/Application.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/email/EmailConfig.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "target": "class:com.example.app.common.email.EmailService",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "class:com.example.app.common.email.EmailService",
+      "target": "file:src/main/kotlin/com/example/app/common/email/EmailConfig.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "target": "class:com.example.app.common.exception.AppException",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+      "target": "class:com.example.app.common.exception.GlobalExceptionHandler",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "class:com.example.app.common.exception.GlobalExceptionHandler",
+      "target": "class:com.example.app.common.exception.AppException",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/config/AccessLogFilter.kt",
+      "target": "class:com.example.app.config.AccessLogFilter",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:com.example.app.common.email.EmailService",
+      "target": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/config/RedisConfig.kt",
+      "target": "class:src/main/kotlin/com/example/app/config/RedisConfig.kt:RedisConfig",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/config/SecurityConfig.kt",
+      "target": "class:src/main/kotlin/com/example/app/config/SecurityConfig.kt:SecurityConfig",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt:MonitorScheduler",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt:MonitorService",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt:SeenTender",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt:SubscriptionProcessor",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt:TenderEmailComposer",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/config/RedisConfig.kt",
+      "target": "file:src/main/kotlin/com/example/app/config/RedisConfig.kt",
+      "type": "configures",
+      "weight": 0.5,
+      "label": "configures Redis cache and template beans",
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTenderRepository.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTenderRepository.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/email/EmailMessage.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "type": "depends_on",
+      "weight": 0.6,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/test/kotlin/com/example/app/domain/tender/monitor/MonitorServiceTest.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/test/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposerTest.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "type": "tested_by",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt:Subscription",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt:SubscriptionController",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt:SubscriptionService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/User.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/user/User.kt:User",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/user/UserController.kt:UserController",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/user/UserDtos.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserDtos.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/user/User.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "target": "class:src/main/kotlin/com/example/app/domain/user/UserService.kt:UserService",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/user/UserRepository.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "target": "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "target": "file:src/main/kotlin/com/example/app/domain/user/UserDtos.kt",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/common/email/EmailService.kt",
+      "target": "file:src/test/kotlin/com/example/app/common/email/EmailServiceTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/config/AccessLogFilter.kt",
+      "target": "file:src/test/kotlin/com/example/app/config/AccessLogFilterTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/monitor/MonitorServiceTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposerTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/source/TenderLocalKeywordFilterSpec.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/source/TenderSourceRegistryTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223Source.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223SourceTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceIntegrationTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionControllerTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionServiceTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserController.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/user/UserControllerTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+      "target": "file:src/test/kotlin/com/example/app/domain/user/UserServiceTest.kt",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:api",
+      "name": "API Layer",
+      "description": "Spring REST controllers that expose HTTP endpoints, plus the frontend API client modules that call those endpoints. These files define the contract between the frontend and backend.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+        "file:src/main/kotlin/com/example/app/domain/user/UserController.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt",
+        "file:src/main/kotlin/com/example/app/domain/user/UserDtos.kt",
+        "file:src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+        "file:src/main/kotlin/com/example/app/common/exception/AppException.kt",
+        "file:frontend/src/api/client.ts",
+        "file:frontend/src/api/subscriptions.ts",
+        "file:frontend/src/api/types.ts"
+      ]
+    },
+    {
+      "id": "layer:service",
+      "name": "Service Layer",
+      "description": "Business logic services including Spring @Service classes, the tender monitoring scheduler and processor, subscription processing, email composition, and the email service. Orchestrates data access and domain rules.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt",
+        "file:src/main/kotlin/com/example/app/domain/user/UserService.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt",
+        "file:src/main/kotlin/com/example/app/common/email/EmailService.kt",
+        "file:src/main/kotlin/com/example/app/common/email/EmailMessage.kt"
+      ]
+    },
+    {
+      "id": "layer:data",
+      "name": "Data Layer",
+      "description": "JPA entities, Spring Data repositories, tender domain model types, Gosplan tender source implementations, and related DTOs/interfaces. Responsible for persistence and external data ingestion.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+        "file:src/main/kotlin/com/example/app/domain/user/User.kt",
+        "file:src/main/kotlin/com/example/app/domain/user/UserRepository.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTenderRepository.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSource.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223Source.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanPurchaseDto.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanProperties.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanClientConfig.kt"
+      ]
+    },
+    {
+      "id": "layer:frontend-ui",
+      "name": "Frontend UI Layer",
+      "description": "React components, pages, shared layout, primitive shadcn/ui components, static data, and utility libraries. All frontend view and interaction logic lives here.",
+      "nodeIds": [
+        "file:frontend/src/App.tsx",
+        "file:frontend/src/components/shared/Layout.tsx",
+        "file:frontend/src/components/shared/Navbar.tsx",
+        "file:frontend/src/components/shared/ThemeToggle.tsx",
+        "file:frontend/src/components/ui/alert-dialog.tsx",
+        "file:frontend/src/components/ui/badge.tsx",
+        "file:frontend/src/components/ui/button.tsx",
+        "file:frontend/src/components/ui/input.tsx",
+        "file:frontend/src/components/ui/label.tsx",
+        "file:frontend/src/components/ui/region-select.tsx",
+        "file:frontend/src/components/ui/select.tsx",
+        "file:frontend/src/components/ui/sheet.tsx",
+        "file:frontend/src/components/ui/skeleton.tsx",
+        "file:frontend/src/components/ui/switch.tsx",
+        "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx",
+        "frontend/src/components/ui/table.tsx",
+        "frontend/src/components/ui/tag-input.tsx",
+        "frontend/src/components/ui/textarea.tsx",
+        "frontend/src/data/regions.ts",
+        "frontend/src/lib/sources.ts",
+        "frontend/src/lib/utils.ts",
+        "frontend/src/main.tsx",
+        "frontend/src/pages/subscriptions/SubscriptionDrawer.tsx",
+        "frontend/src/pages/subscriptions/SubscriptionForm.tsx"
+      ]
+    },
+    {
+      "id": "layer:config",
+      "name": "Configuration Layer",
+      "description": "Spring Boot application entry point, Spring configuration classes (Redis, Security, SPA routing, access logging), email configuration, and frontend build/lint tooling configuration files.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/Application.kt",
+        "file:src/main/kotlin/com/example/app/config/RedisConfig.kt",
+        "file:src/main/kotlin/com/example/app/config/SecurityConfig.kt",
+        "file:src/main/kotlin/com/example/app/config/SpaController.kt",
+        "file:src/main/kotlin/com/example/app/config/AccessLogFilter.kt",
+        "file:src/main/kotlin/com/example/app/common/email/EmailConfig.kt",
+        "file:frontend/eslint.config.js",
+        "file:frontend/vite.config.ts"
+      ]
+    },
+    {
+      "id": "layer:test",
+      "name": "Test Layer",
+      "description": "All unit and integration test files covering controllers, services, repositories, email, filters, and Gosplan tender sources.",
+      "nodeIds": [
+        "file:src/test/kotlin/com/example/app/common/email/EmailServiceTest.kt",
+        "file:src/test/kotlin/com/example/app/config/AccessLogFilterTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/monitor/MonitorServiceTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposerTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/source/TenderLocalKeywordFilterSpec.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/source/TenderSourceRegistryTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223SourceTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceIntegrationTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44SourceTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionControllerTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionServiceTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/user/UserControllerTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/user/UserServiceTest.kt"
+      ]
+    },
+    {
+      "id": "layer:workflow",
+      "name": "Workflow Layer",
+      "description": "Spec-based development workflow shell scripts used to drive the spec lifecycle (requirements, design, tasks, implementation, review, approval).",
+      "nodeIds": [
+        "file:spec/.scripts/approve-context.sh",
+        "file:spec/.scripts/design-context.sh",
+        "file:spec/.scripts/implement-context.sh",
+        "file:spec/.scripts/requirements-context.sh",
+        "file:spec/.scripts/review-context.sh",
+        "file:spec/.scripts/status-context.sh",
+        "file:spec/.scripts/tasks-approved-context.sh",
+        "file:spec/.scripts/tasks-context.sh",
+        "file:spec/.scripts/update-task-context.sh"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "Application Entry Point",
+      "description": "Application.kt is the Spring Boot entry point annotated with @SpringBootApplication. It bootstraps the entire backend, triggering component scanning across all packages under com.example.app. Starting here gives you the 30,000-foot view before diving into the domain.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/Application.kt"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "Core Tender Data Model",
+      "description": "Tender.kt defines the canonical data structure that flows through the entire system — a plain Kotlin data class holding all fields scraped from government procurement APIs. TenderSource.kt declares the interface every data-source adapter must implement, establishing the plugin contract. TenderSourceRegistry.kt collects all registered sources so the monitor can call them uniformly.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/source/Tender.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSource.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/TenderSourceRegistry.kt"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "Gosplan API Adapters",
+      "description": "GosplanFz44Source.kt and GosplanFz223Source.kt are the two concrete TenderSource implementations that query the Russian government procurement API (gosplan.ru) for FZ-44 and FZ-223 tenders respectively. GosplanPurchaseDto.kt holds the raw deserialized JSON response, while GosplanClientConfig.kt and GosplanProperties.kt configure the HTTP client and bind API credentials from application properties.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz44Source.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanFz223Source.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanPurchaseDto.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanClientConfig.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/source/gosplan/GosplanProperties.kt"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "Tender Filtering",
+      "description": "TenderFilters.kt encapsulates the keyword-matching and category-filtering logic that decides whether a tender is relevant to a given subscription. It includes support for localKeywords — a per-subscription allowlist of locality terms. Understanding this file is key to grasping how subscriptions turn raw API data into meaningful signals.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/source/TenderFilters.kt"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "Subscription Domain Model",
+      "description": "Subscription.kt is the central JPA entity capturing what a user wants to watch: keywords, budget range, tender type, local keyword filters, and notification email. SubscriptionRepository.kt provides Spring Data CRUD access. SubscriptionDtos.kt defines the request/response shapes and the extension-function mapping between entity and DTO.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/Subscription.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionRepository.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionDtos.kt"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "Monitor: Scheduling and Processing",
+      "description": "MonitorScheduler.kt drives the periodic job that wakes up and triggers MonitorService.kt, which iterates over all active subscriptions. SubscriptionProcessor.kt is the heart of the monitor: for each subscription it fetches tenders via TenderSourceRegistry, filters them with TenderFilters, records matches in SeenTender to avoid duplicate alerts, and delegates email sending to TenderEmailComposer.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorScheduler.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/MonitorService.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/SubscriptionProcessor.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/TenderEmailComposer.kt"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "Seen Tenders: Deduplication Store",
+      "description": "SeenTender.kt is a lightweight JPA entity that records every tender ID already notified for a given subscription, preventing duplicate email alerts across scheduler runs. SeenTenderRepository.kt provides the query needed to check membership before dispatching a notification.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTender.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/monitor/SeenTenderRepository.kt"
+      ]
+    },
+    {
+      "order": 8,
+      "title": "REST API: Subscription CRUD",
+      "description": "SubscriptionController.kt exposes the /api/v1/subscriptions endpoints — list, get, create, update, delete, and status toggle. SubscriptionService.kt contains the business logic with @Transactional boundaries and delegates persistence to SubscriptionRepository. This layer is what the React frontend calls and what users interact with indirectly.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionController.kt",
+        "file:src/main/kotlin/com/example/app/domain/tender/subscription/SubscriptionService.kt"
+      ]
+    },
+    {
+      "order": 9,
+      "title": "Infrastructure: Security, Caching, and Error Handling",
+      "description": "SecurityConfig.kt defines Spring Security rules — which paths are public and how the admin UI is protected. RedisConfig.kt sets up the Spring Cache abstraction backed by Redis, used by UserService.kt for cached user lookups. GlobalExceptionHandler.kt and AppException.kt form the error-handling layer, translating domain exceptions into structured HTTP responses.",
+      "nodeIds": [
+        "file:src/main/kotlin/com/example/app/config/SecurityConfig.kt",
+        "file:src/main/kotlin/com/example/app/config/RedisConfig.kt",
+        "file:src/main/kotlin/com/example/app/common/exception/GlobalExceptionHandler.kt",
+        "file:src/main/kotlin/com/example/app/common/exception/AppException.kt"
+      ]
+    },
+    {
+      "order": 10,
+      "title": "Frontend Entry Point and Routing",
+      "description": "main.tsx is the React application bootstrap — it mounts the root component into the DOM. App.tsx wires up BrowserRouter, ThemeProvider, React Query's QueryClientProvider, and toast notifications, then routes /admin to SubscriptionsPage. These two files are the frontend equivalent of Application.kt.",
+      "nodeIds": [
+        "file:frontend/src/App.tsx"
+      ]
+    },
+    {
+      "order": 11,
+      "title": "Frontend API Client Layer",
+      "description": "client.ts provides a thin typed fetch wrapper that handles JSON headers, non-2xx errors, and 204 No Content. subscriptions.ts uses it to expose CRUD functions (list, get, create, update, delete, toggle) against /api/v1/subscriptions. types.ts declares the TypeScript interfaces that mirror the backend DTOs, creating a type-safe contract across the network boundary.",
+      "nodeIds": [
+        "file:frontend/src/api/client.ts",
+        "file:frontend/src/api/subscriptions.ts",
+        "file:frontend/src/api/types.ts"
+      ]
+    },
+    {
+      "order": 12,
+      "title": "Frontend UI: Subscriptions Management",
+      "description": "SubscriptionsPage.tsx is the main admin view — it lists all subscriptions, handles status toggling and deletion using React Query mutations, and opens the drawer for editing. SubscriptionDrawer.tsx wraps the form in a slide-over panel. SubscriptionForm.tsx renders all subscription fields including localKeywords, wires up validation, and submits create/update requests to the API.",
+      "nodeIds": [
+        "file:frontend/src/pages/subscriptions/SubscriptionsPage.tsx"
+      ]
+    },
+    {
+      "order": 13,
+      "title": "Testing: Service and Filter Specs",
+      "description": "SubscriptionServiceTest.kt demonstrates unit testing the service layer with MockK mocks and @WebMvcTest slice patterns, covering CRUD operations and the status-toggle flow. TenderLocalKeywordFilterSpec.kt is a focused spec-style test for the localKeywords filtering logic in TenderFilters, verifying that subscriptions only match tenders containing the expected locality terms.",
+      "nodeIds": [
+        "file:src/test/kotlin/com/example/app/domain/tender/subscription/SubscriptionServiceTest.kt",
+        "file:src/test/kotlin/com/example/app/domain/tender/source/TenderLocalKeywordFilterSpec.kt"
+      ]
+    }
+  ]
+}
